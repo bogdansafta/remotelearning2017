@@ -1,0 +1,10 @@
+C:\Users\Silviu-PC\remotelearning2017\remotelearning2017\sources\SilviuSabau\Tema1\bin\Debug\netcoreapp2.0\Tema1.deps.json
+C:\Users\Silviu-PC\remotelearning2017\remotelearning2017\sources\SilviuSabau\Tema1\bin\Debug\netcoreapp2.0\Tema1.runtimeconfig.json
+C:\Users\Silviu-PC\remotelearning2017\remotelearning2017\sources\SilviuSabau\Tema1\bin\Debug\netcoreapp2.0\Tema1.runtimeconfig.dev.json
+C:\Users\Silviu-PC\remotelearning2017\remotelearning2017\sources\SilviuSabau\Tema1\bin\Debug\netcoreapp2.0\Tema1.dll
+C:\Users\Silviu-PC\remotelearning2017\remotelearning2017\sources\SilviuSabau\Tema1\bin\Debug\netcoreapp2.0\Tema1.pdb
+C:\Users\Silviu-PC\remotelearning2017\remotelearning2017\sources\SilviuSabau\Tema1\obj\Debug\netcoreapp2.0\Tema1.csproj.CoreCompileInputs.cache
+C:\Users\Silviu-PC\remotelearning2017\remotelearning2017\sources\SilviuSabau\Tema1\obj\Debug\netcoreapp2.0\Tema1.AssemblyInfoInputs.cache
+C:\Users\Silviu-PC\remotelearning2017\remotelearning2017\sources\SilviuSabau\Tema1\obj\Debug\netcoreapp2.0\Tema1.AssemblyInfo.cs
+C:\Users\Silviu-PC\remotelearning2017\remotelearning2017\sources\SilviuSabau\Tema1\obj\Debug\netcoreapp2.0\Tema1.dll
+C:\Users\Silviu-PC\remotelearning2017\remotelearning2017\sources\SilviuSabau\Tema1\obj\Debug\netcoreapp2.0\Tema1.pdb
