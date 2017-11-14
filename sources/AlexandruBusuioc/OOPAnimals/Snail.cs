@@ -8,9 +8,12 @@ namespace OOPAnimals
         {
             return "It doesn't make any sound... (What did you expect?)";
         }
-        public override string GetName()
+        public override string Name
         {
-            return "Snail";
+            get
+            {
+                return "Snail";
+            }
         }
     }
 }

@@ -21,7 +21,7 @@ namespace OOPAnimals
 
             for(int i=0;i<4;i++)
             {
-                System.Console.WriteLine("The "+animals[i].GetName()+" makes "+animals[i].MakeSound());
+                System.Console.WriteLine("The "+animals[i].Name+" makes "+animals[i].MakeSound());
             }
         }
 
@@ -34,7 +34,7 @@ namespace OOPAnimals
             animals.Add(new Snail());
             foreach(Animal animal in animals)
             {
-                System.Console.WriteLine("The "+animal.GetName()+" makes "+animal.MakeSound());
+                System.Console.WriteLine("The "+animal.Name+" makes "+animal.MakeSound());
             }
         }
     }

@@ -8,9 +8,12 @@ namespace OOPAnimals
         {
             return "Croak";
         }
-        public override string GetName()
+        public override string Name
         {
-            return "Frog";
+            get
+            {
+                return "Frog";
+            }
         }
     }
 }
