@@ -7,31 +7,30 @@ namespace AnimalsOOP
 {
     public class MainClass
     {
-        private static List<Animal> _animalTypes;
-
-        private void InitializeAnimalTypes()
+        private static List<Animal> GetAnimalTypes()
         {
-            _animalTypes = Assembly.GetExecutingAssembly()
-                                             .GetTypes()
-                                             .Where(type => type.IsSubclassOf(typeof(Animal)))
-                                             .Select(type => (Animal)Activator.CreateInstance(type))
-                                             .ToList();
+            List<Animal> animalTypes = Assembly.GetExecutingAssembly()
+                                               .GetTypes()
+                                               .Where(type => type.IsSubclassOf(typeof(Animal)))
+                                               .Select(type => (Animal)Activator.CreateInstance(type))
+                                               .ToList();
+            return animalTypes;
         }
 
         public static void Main(string[] args)
         {
+            List<Animal> animalTypes = GetAnimalTypes();
+
             Animal[] animals = new Animal[10];
-            new MainClass().InitializeAnimalTypes();
-
             Random random = new Random();
-            for (int i = 0; i < animals.Count(); i++)
-            {
-                int randomIndex = random.Next(_animalTypes.Count);
-                Animal randomAnimal = _animalTypes.ElementAt(randomIndex);
 
-                Console.WriteLine($"{randomAnimal?.Name} makes {randomAnimal?.MakeSound()}.");
+            for (int index = 0; index < animals.Length; index++)
+            {
+                int randomIndex = random.Next(animalTypes.Count);
+                animals[index] = animalTypes.ElementAt(randomIndex);
+
+                Console.WriteLine($"{animals[index].Name} makes {animals[index].MakeSound()}.");
             }
         }
-
     }
 }

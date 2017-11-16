@@ -4,9 +4,13 @@ namespace AnimalsOOP
 {
     public class Dog : Animal
     {
-        private string _sound = "woof woof";
+        private string sound = "woof woof";
+        public override string Name { get; set; }
 
-        public override string Name => this.GetType().Name;
-        public override string MakeSound() => _sound;
+        public Dog()
+        {
+            Name = this.GetType().Name;
+        }
+        public override string MakeSound() => sound;
     }
 }
