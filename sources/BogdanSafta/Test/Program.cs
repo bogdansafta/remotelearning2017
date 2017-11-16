@@ -17,7 +17,7 @@ namespace OOPHelloWorld
        
         public override String MakeSound()
         {
-            String DogSound="HAM";
+            String DogSound="HAMHAM";
             return DogSound;
         }
     }
