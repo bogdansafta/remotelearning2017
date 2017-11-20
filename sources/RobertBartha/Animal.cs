@@ -4,11 +4,11 @@ namespace OOP_Animals
 {
     public abstract class Animal
     {
-        public String name;
-        public abstract String MakeSound();
-        public Animal(String name)
+        public string name;
+        public abstract string MakeSound();
+        public Animal(string name)
         {
-            this.name=name;
+            this.name = name;
         }
     }
 }

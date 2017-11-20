@@ -6,14 +6,14 @@ namespace OOP_Animals
     {
         public static void Main(string[] args)
         {
-           Animal [] a=new Animal[3];
-           a[0]=new Dog("Dog");
-           a[1]=new Cat("Cat");
-           a[2]=new Frog("Frog");
-           for(int i=0;i<a.Length;i++)
-           {
-               Console.WriteLine("The "+a[i].name+" makes "+a[i].MakeSound());
-           }
+            Animal[] animale = new Animal[3];
+            animale[0] = new Dog("Dog");
+            animale[1] = new Cat("Cat");
+            animale[2] = new Frog("Frog");
+            for (int i = 0; i < animale.Length; i++)
+            {
+                Console.WriteLine($"The {animale[i].name} makes {animale[i].MakeSound()}");
+            }
         }
     }
 }

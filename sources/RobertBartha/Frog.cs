@@ -2,12 +2,12 @@ using System;
 
 namespace OOP_Animals
 {
-    public class Frog:Animal
+    public class Frog : Animal
     {
-        public Frog(String name) : base(name){}
-        public override String MakeSound()
+        public Frog(string name) : base(name) { }
+        public override string MakeSound()
         {
-            String FrogSound="OAC";
+            string FrogSound = "OAC";
             return FrogSound;
         }
     }

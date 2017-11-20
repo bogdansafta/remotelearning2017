@@ -4,11 +4,11 @@ namespace OOP_Animals
 {
     public class Dog : Animal
     {
-        public Dog(String name) : base(name) {} 
-       
-        public override String MakeSound()
+        public Dog(string name) : base(name) { }
+
+        public override string MakeSound()
         {
-            String DogSound="HAM";
+            string DogSound = "HAM";
             return DogSound;
         }
     }

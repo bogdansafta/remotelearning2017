@@ -2,12 +2,12 @@ using System;
 
 namespace OOP_Animals
 {
-     public class Cat:Animal
+    public class Cat : Animal
     {
-        public Cat(String name) : base(name){}
+        public Cat(string name) : base(name) { }
         public override String MakeSound()
         {
-            String CatSound="MIAU";
+            string CatSound = "MIAU";
             return CatSound;
         }
     }
