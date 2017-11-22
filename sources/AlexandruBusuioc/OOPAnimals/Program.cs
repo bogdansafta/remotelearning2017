@@ -12,29 +12,23 @@ namespace OOPAnimals
         
         public static void ArrayMethod()
         {
-            Animal[] animals = new Animal[4];
-            
-            animals[0] = new Dog();
-            animals[1] = new Cat();
-            animals[2] = new Frog();
-            animals[3] = new Snail();
-
+            Animal[] animals = new Animal[] { new Dog(), new Cat(), new Frog(), new Snail() };
             for(int i=0;i<4;i++)
             {
-                System.Console.WriteLine("The "+animals[i].Name+" makes "+animals[i].MakeSound());
+                string name = animals[i].Name;
+                string sound = animals[i].MakeSound();
+                System.Console.WriteLine($"The {name} makes {sound}");
             }
         }
 
         public static void ListMethod()
         {
-            List<Animal> animals = new List<Animal>();
-            animals.Add(new Dog());
-            animals.Add(new Cat());
-            animals.Add(new Frog());
-            animals.Add(new Snail());
+            List<Animal> animals = new List<Animal>() { new Dog(), new Cat(), new Frog(), new Snail() };
             foreach(Animal animal in animals)
             {
-                System.Console.WriteLine("The "+animal.Name+" makes "+animal.MakeSound());
+                string name = animal.Name;
+                string sound = animal.MakeSound();
+                System.Console.WriteLine($"The {name} makes {sound}");
             }
         }
     }
