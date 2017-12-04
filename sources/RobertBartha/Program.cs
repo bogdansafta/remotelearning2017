@@ -1,19 +1,19 @@
 ﻿using System;
 
-namespace OOP_Animals
+namespace Product___ProductCollection
 {
-    public class Program
+    class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
-            Animal[] animale = new Animal[3];
-            animale[0] = new Dog("Dog");
-            animale[1] = new Cat("Cat");
-            animale[2] = new Frog("Frog");
-            for (int i = 0; i < animale.Length; i++)
+            ProductCollection<Product> lista = new ProductCollection<Product>();
+            Product produs = new Product("Aliment", 1, "Ciocolata", 12, 1);
+            lista.Add(produs);
+            for (int i = 0; i < lista.Count; i++)
             {
-                Console.WriteLine($"The {animale[i].name} makes {animale[i].MakeSound()}");
+                Console.WriteLine(lista);
             }
+            lista.Remove(produs);
         }
     }
 }
