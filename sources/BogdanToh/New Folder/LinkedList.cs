@@ -96,8 +96,7 @@ namespace New_Folder
                 Console.WriteLine("Empty List");
 
             }
-            Node<T> iterator = new Node<T>();
-            iterator = head;
+            Node<T> iterator = head;
             while (iterator != null)
             {
                 yield return iterator.data;
@@ -110,5 +109,7 @@ namespace New_Folder
         {
             return this.GetEnumerator();
         }
+
+       
     }
 }

@@ -8,19 +8,19 @@ namespace New_Folder
         static void Main(string[] args)
         {
 
-            LinkedList<Product> l = new LinkedList<Product>();
-            Product p = new Product();
+            
+            Product p = new Product("Snacks","Lays",5,10,3);
 
-
-
-            l.Add(p);
-            //l.Remove(p);
-
-
-            foreach (Product prod in l)
-            {
-                Console.WriteLine(prod);
-            }
+            ProductCollection.AddItem(p);
+            ProductCollection.ShowList();
+            Product emptyProd = new Product();
+            Console.WriteLine("GetItem");
+            emptyProd=ProductCollection.GetItem(0);
+            Console.WriteLine(emptyProd);
+            Console.WriteLine("Count is "+ProductCollection.Count());
+            Console.WriteLine("Remove");
+            ProductCollection.RemoveItem(p);
+            ProductCollection.ShowList();
 
 
         }

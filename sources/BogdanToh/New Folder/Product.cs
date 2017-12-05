@@ -4,6 +4,16 @@ namespace New_Folder
 {
     public class Product
     {
+        public Product() { }
+        public Product(string category, string name, double price, int quantity, int cells)
+        {
+            this.TypeOfProduct = category;
+            this.Name = name;
+            this.Price = price;
+            this.Quantity = quantity;
+            this.NrOfCells = cells;
+        }
+
         public string TypeOfProduct { get; set; } = "Unknown";
         public string Name { get; set; } = "Product";
         public double Price { get; set; } = 5;
