@@ -46,6 +46,7 @@ namespace VendingMachine
 
             internalItems[size - 1] = item;
         }
+
         public void AddRange(params T[] items)
         {
             int length = items.Length;
@@ -96,13 +97,12 @@ namespace VendingMachine
                     return true;
                 }
             }
-
             return false;
         }
 
         public void RemoveAt(int index)
         {
-            if (index >= size)
+            if (index > size)
             {
                 throw new ArgumentOutOfRangeException();
             }
@@ -116,16 +116,18 @@ namespace VendingMachine
             }
         }
 
-        public T GetItem(int index){
-            if(index>=size){
+        public T GetItem(int index)
+        {
+            if (index >= size)
+            {
                 throw new ArgumentOutOfRangeException();
             }
             return this[index];
         }
+
         public IEnumerator<T> GetEnumerator()
         {
             return new Enumerator(this);
-
         }
 
         IEnumerator IEnumerable.GetEnumerator()

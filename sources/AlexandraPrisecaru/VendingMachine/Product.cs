@@ -30,7 +30,8 @@ namespace VendingMachine
             return true;
         }
 
-        public override string ToString(){
+        public override string ToString()
+        {
             return $"Name: {Name}\tPrice: {Price}\tCategory: {Category}";
         }
     }

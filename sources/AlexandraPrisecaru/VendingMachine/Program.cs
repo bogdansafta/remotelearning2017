@@ -10,6 +10,7 @@ namespace VendingMachine
             MyListFunctionalities();
             ProductCollectionFunctionalities();
         }
+
         private static void MyListFunctionalities()
         {
             MyList<Product> products = new MyList<Product>();
@@ -19,6 +20,7 @@ namespace VendingMachine
                 Name = "Coffee",
                 Price = 5
             };
+
             products.Add(coffeeProduct);
 
             products.AddRange(
@@ -35,9 +37,11 @@ namespace VendingMachine
                     Price = 10.5
                 }
             );
+
             if(products.Contains(coffeeProduct)){
                 products.Remove(coffeeProduct);
             }
+
             products.RemoveAt(1);
 
             Console.WriteLine("Example using list directly:\n");
@@ -51,12 +55,11 @@ namespace VendingMachine
         {
             ProductCollection productCollection = new ProductCollection();
             productCollection.Add(
-                new Product
-                {
+                new Product{
                     Category = Category.Beverages,
                     Name = "Cola",
                     Price = 12.5
-                });
+            });
             productCollection.Add(
                 new Product{
                     Category = Category.Snacks,
