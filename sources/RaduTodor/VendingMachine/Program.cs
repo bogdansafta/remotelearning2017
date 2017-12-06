@@ -10,7 +10,7 @@ namespace VendingMachine
             Produse.Add(new Product("Covrigi", "Toortitzi", 5.99, 6, 1, 2));
             Produse.Add(new Product("Covrigi", "Croco", 3.99, 3, 1, 1));
             Produse.Add(new Product("Covrigi", "Toortitzi", 5.99, 6, 1, 2));
-            Produse.Remove("Covrigi", "Croco");
+            Produse.Remove(new Product("Covrigi", "Croco",0,0,0,0));
             Node Temp = Produse.GetFirst();
             for (int i = 0; i < Produse.Count(); i++)
             {

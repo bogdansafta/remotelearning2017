@@ -2,7 +2,7 @@ using System;
 
 namespace VendingMachine
 {
-    internal class Product
+    internal class Product: IEquatable<Product>
     {
         private string type;
         private string name;
@@ -61,6 +61,14 @@ namespace VendingMachine
         private void SetSize(Tuple<int, int> value)
         {
             size = value;
+        }
+
+        public bool Equals(Product other)
+        {
+            if ( name==other.name && type==other.type)
+                return true;
+            else 
+                return false;
         }
     }
 }

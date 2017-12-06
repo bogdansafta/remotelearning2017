@@ -12,11 +12,11 @@ namespace VendingMachine
             First = null;
         }
 
-        public Node FindPrev(string tip, string nume)
+        public Node FindPrev(Product stranger)//string tip, string nume)
         {
             Node Temp = First;
             for (int i = 0; i < Size; i++)
-                if (Temp.To != null && Temp.To.Product.Gettype() == tip && Temp.To.Product.GetName() == nume)
+                if (Temp.To != null && Temp.To.Product.Equals(stranger))//Temp.To.Product.Gettype() == tip && Temp.To.Product.GetName() == nume)
                     return Temp;
                 else
                     Temp = Temp.To;
@@ -25,7 +25,7 @@ namespace VendingMachine
 
         public void Add(Product New)
         {
-            Node Same = FindPrev(New.Gettype(), New.GetName());
+            Node Same = FindPrev(New);
             if (Same != null)
                 Same.To.Product.SetQuantity(Same.To.Product.GetQuantity() + New.GetQuantity());
             else
@@ -35,9 +35,9 @@ namespace VendingMachine
                 First = Temp;
             }
         }
-        public void Remove(string tip, string nume)
+        public void Remove(Product stranger)
         {
-            if (First.Product.Gettype() == tip && First.Product.GetName() == nume)
+            if (First.Product.Equals(stranger))
             {
                 First = First.To;
                 Size--;
@@ -45,7 +45,7 @@ namespace VendingMachine
             else
             {
 
-                Node Temp = FindPrev(tip, nume);
+                Node Temp = FindPrev(stranger);
                 if (Temp != null)
                 {
                     Temp.To = Temp.To.To;
