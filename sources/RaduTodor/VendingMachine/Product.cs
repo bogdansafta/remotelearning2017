@@ -2,41 +2,38 @@ using System;
 
 namespace VendingMachine
 {
-    internal class Product: IEquatable<Product>
+    internal class Product : IEquatable<Product>
     {
-        private string type;
+        private ProductCategory category;
         private string name;
         double Price { get; set; }
         private int quantity;
-        private Tuple<int, int> size;
         public Product()
         {
-            type = null;
+            category = null;
             name = null;
             Price = 0;
             SetQuantity(0);
-            SetSize(new Tuple<int, int>(0, 0));
         }
-        public Product(String tip, String nume, double pret, int cantitate, int dimensiuneCelule1, int dimensiuneCelule2)
+        public Product(String tip, String nume, double pret, int cantitate)
         {
-            type = tip;
+            category = new ProductCategory(tip);
             name = nume;
             Price = pret;
             SetQuantity(cantitate);
-            SetSize(new Tuple<int, int>(dimensiuneCelule1, dimensiuneCelule2));
         }
-        
+
         public override String ToString()
         {
             return (Gettype() + " " + GetName() + " " + GetQuantity());
         }
         public string Gettype()
         {
-            return type;
+            return category.Name1;
         }
         public void SetType(string value)
         {
-            type = value;
+            category.Name1 = value;
         }
         public string GetName()
         {
@@ -54,20 +51,12 @@ namespace VendingMachine
         {
             quantity = value;
         }
-        private Tuple<int, int> GetSize()
-        {
-            return size;
-        }
-        private void SetSize(Tuple<int, int> value)
-        {
-            size = value;
-        }
 
         public bool Equals(Product other)
         {
-            if ( name==other.name && type==other.type)
+            if (name == other.name && category.Name1 == other.category.Name1)
                 return true;
-            else 
+            else
                 return false;
         }
     }

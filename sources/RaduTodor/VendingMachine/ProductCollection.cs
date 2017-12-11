@@ -1,3 +1,5 @@
+using System;
+
 namespace VendingMachine
 {
     internal class ProductCollection
@@ -12,32 +14,46 @@ namespace VendingMachine
             First = null;
         }
 
-        public Node FindPrev(Product stranger)//string tip, string nume)
+     
+               public event EventHandler LocationOverlap;
+             protected virtual void OnLocationOverlap(EventArgs e)
+        {
+            EventHandler handler = LocationOverlap;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
+        public Node FindPrev(Product stranger,int x, int y,int z)
         {
             Node Temp = First;
             for (int i = 0; i < Size; i++)
-                if (Temp.To != null && Temp.To.Product.Equals(stranger))//Temp.To.Product.Gettype() == tip && Temp.To.Product.GetName() == nume)
+                if (Temp.To != null && Temp.To.containableItem.product.Equals(stranger))
                     return Temp;
+                else if (new Position(x,y,z).Equals(Temp.containableItem.position))
+                {
+                    OnLocationOverlap(EventArgs.Empty);
+                }
                 else
                     Temp = Temp.To;
             return null;
         }
 
-        public void Add(Product New)
+        public void Add(Product New,int x,int y, int z)
         {
-            Node Same = FindPrev(New);
+            Node Same = FindPrev(New,x,y,z);
             if (Same != null)
-                Same.To.Product.SetQuantity(Same.To.Product.GetQuantity() + New.GetQuantity());
+                Same.To.containableItem.product.SetQuantity(Same.To.containableItem.product.GetQuantity() + New.GetQuantity());
             else
             {
                 Size++;
-                Node Temp = new Node(New, First);
+                Node Temp = new Node(New, First, x, y, z);
                 First = Temp;
             }
         }
         public void Remove(Product stranger)
         {
-            if (First.Product.Equals(stranger))
+            if (First.containableItem.product.Equals(stranger))
             {
                 First = First.To;
                 Size--;
@@ -45,7 +61,7 @@ namespace VendingMachine
             else
             {
 
-                Node Temp = FindPrev(stranger);
+                Node Temp = FindPrev(stranger,-1,-1,-1);
                 if (Temp != null)
                 {
                     Temp.To = Temp.To.To;

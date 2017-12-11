@@ -2,17 +2,17 @@ namespace VendingMachine
 {
     internal class Node
     {
-        public Product Product;
+        public ContainableItem containableItem;
         public Node To;
 
         public Node()
         {
-            Product = null;
+            containableItem = null;
             To = null;
         }
-        public Node(Product product, Node node)
+        public Node(Product product,Node node,int x, int y, int z)
         {
-            Product = product;
+            containableItem=new ContainableItem(product,new Position(x,y,z));
             To = node;
         }
     }
