@@ -6,8 +6,9 @@ namespace Product___ProductCollection
     {
         static void Main(string[] args)
         {
-            ProductCollection<Product> lista = new ProductCollection<Product>();
-            Product produs = new Product("Aliment", 1, "Ciocolata", 12, 1);
+            ProductCollection<ContainableItem> lista = new ProductCollection<ContainableItem>();
+            Position poz = new Position(1, 1, 2);
+            Product produs = new Product(poz, "Ciocolata", 1, "Milka", 12, 1);
             lista.Add(produs);
             for (int i = 0; i < lista.Count; i++)
             {
