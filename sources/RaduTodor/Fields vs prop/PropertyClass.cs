@@ -1,8 +1,9 @@
 namespace Fields_vs_prop
 {
-    internal class FieldClass
+    internal class PropertyClass
     {
         private double p;
+        
         public double P
         {
             get { return p; }

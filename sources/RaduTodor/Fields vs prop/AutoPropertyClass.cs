@@ -1,6 +1,6 @@
 namespace Fields_vs_prop
 {
-    internal class PropertyClass
+    internal class AutoPropertyClass
     {
         public double P { get; set; }
     }
