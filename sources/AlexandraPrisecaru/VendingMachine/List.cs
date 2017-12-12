@@ -131,7 +131,7 @@ namespace VendingMachine
             return new Enumerator(this);
         }
 
-        private void EnssureCapacity(int capacity = 0)
+        private void EnsureCapacity(int capacity = 0)
         {
             if (capacity < 0)
             {
