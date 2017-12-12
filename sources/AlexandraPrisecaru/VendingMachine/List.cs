@@ -4,16 +4,33 @@ using System.Collections.Generic;
 
 namespace VendingMachine
 {
-    public class MyList<T> : ICollection<T>
+    public class List<T> : ICollection<T>
     {
         private T[] internalItems;
-        private int size = 0;
+        private int size;
+        private int currentIndex = 0;
 
-        public MyList()
+        public List()
         {
-            internalItems = new T[0];
-            IsReadOnly = false;
+            size = 4;
+            internalItems = new T[size];
         }
+
+        public List(int size)
+        {
+            internalItems = new T[size];
+            this.size = size;
+        }
+
+        public int Count
+        {
+            get
+            {
+                return currentIndex;
+            }
+        }
+
+        public bool IsReadOnly { get; }
 
         public T this[int index]
         {
@@ -21,44 +38,27 @@ namespace VendingMachine
             {
                 if (index >= size)
                 {
-                    throw new ArgumentOutOfRangeException();
+                    throw new IndexOutOfRangeException();
                 }
                 return internalItems[index];
             }
         }
 
-        public int Count
-        {
-            get
-            {
-                return size;
-            }
-        }
-
-        public bool IsReadOnly { get; }
-
         public void Add(T item)
         {
-            T[] items = internalItems;
-            size++;
-            internalItems = new T[size];
-            Array.Copy(items, internalItems, size - 1);
-
-            internalItems[size - 1] = item;
+            EnssureCapacity();
+            internalItems[currentIndex] = item;
+            currentIndex++;
         }
 
         public void AddRange(params T[] items)
         {
-            int length = items.Length;
-            T[] localItems = internalItems;
-            size += length;
-            internalItems = new T[size];
+            EnssureCapacity(items.Length);
 
-            Array.Copy(localItems, internalItems, size - length);
             foreach (T item in items)
             {
-                internalItems[size - length] = item;
-                length--;
+                internalItems[currentIndex] = item;
+                currentIndex++;
             }
         }
 
@@ -67,6 +67,7 @@ namespace VendingMachine
             if (Count > 0)
             {
                 Array.Clear(internalItems, 0, Count);
+                currentIndex = 0;
             }
         }
 
@@ -102,26 +103,21 @@ namespace VendingMachine
 
         public void RemoveAt(int index)
         {
-            if (index > size)
+            if (index > size || index < 0)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new IndexOutOfRangeException();
             }
-            else
-            {
-                if (index < size)
-                {
-                    Array.Copy(internalItems, index + 1, internalItems, index, size - index - 1);
-                    size--;
-                }
-            }
+            Array.Copy(internalItems, index + 1, internalItems, index, size - index - 1);
+            currentIndex--;
         }
 
         public T GetItem(int index)
         {
-            if (index >= size)
+            if (index >= size || index < 0)
             {
-                throw new ArgumentOutOfRangeException();
+                throw new IndexOutOfRangeException();
             }
+
             return this[index];
         }
 
@@ -135,13 +131,37 @@ namespace VendingMachine
             return new Enumerator(this);
         }
 
+        private void EnssureCapacity(int capacity = 0)
+        {
+            if (capacity < 0)
+            {
+                throw new IndexOutOfRangeException();
+            }
+
+            int length = currentIndex;
+
+            if (capacity != 0)
+            {
+                length += capacity;
+            }
+
+            if (length >= size)
+            {
+                size = 4 * (Math.Abs(capacity / 4) + 1);
+
+                T[] localItems = internalItems;
+                internalItems = new T[size];
+                Array.Copy(localItems, internalItems, localItems.Length);
+            }
+        }
+
         internal class Enumerator : IEnumerator<T>
         {
-            private MyList<T> list;
+            private List<T> list;
             private int index;
             private T current;
 
-            internal Enumerator(MyList<T> list)
+            internal Enumerator(List<T> list)
             {
                 this.list = list;
                 index = 0;
@@ -164,7 +184,7 @@ namespace VendingMachine
 
             public bool MoveNext()
             {
-                if (index < list.size)
+                if (index < list.Count)
                 {
                     current = list.internalItems[index];
                     index++;

@@ -2,12 +2,12 @@ using System;
 
 namespace VendingMachine
 {
-    public class Product : IEquatable<Product>
+    public class Product : ContainableItem, IEquatable<Product>
     {
         public string Name { get; set; }
         public double Price { get; set; }
         public Category Category { get; set; }
-        public int Size { get; set; }
+        public int Quantity { get; set; } = 1;
 
         public bool Equals(Product other)
         {
@@ -23,7 +23,7 @@ namespace VendingMachine
             {
                 return false;
             }
-            if (!Size.Equals(other.Size))
+            if (Quantity != other.Quantity)
             {
                 return false;
             }
@@ -32,7 +32,7 @@ namespace VendingMachine
 
         public override string ToString()
         {
-            return $"Name: {Name}\tPrice: {Price}\tCategory: {Category}";
+            return $"Name: {Name}\tPrice: {Price}\tCategory: {Category} \tPosition: {Position.ToString()}";
         }
     }
 }

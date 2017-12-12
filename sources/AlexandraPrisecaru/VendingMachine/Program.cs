@@ -3,80 +3,143 @@ using System.Linq;
 
 namespace VendingMachine
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
-            MyListFunctionalities();
-            ProductCollectionFunctionalities();
+            ContainableItemCollectionFunctionalities();
         }
 
-        private static void MyListFunctionalities()
+        private static void ContainableItemCollectionFunctionalities()
         {
-            MyList<Product> products = new MyList<Product>();
+            ContainableItemCollection containableItemCollection = new ContainableItemCollection();
             Product coffeeProduct = new Product()
             {
                 Category = Category.Beverages,
                 Name = "Coffee",
-                Price = 5
+                Price = 12.3,
+                Position = new Position()
+                {
+                    Row = 0,
+                    Column = 0
+                }
             };
 
-            products.Add(coffeeProduct);
+            Console.WriteLine("Add a product:");
+            containableItemCollection.Add(coffeeProduct);
+            WriteContainableItems(containableItemCollection);
 
-            products.AddRange(
+            Console.WriteLine("Add multiple products:");
+            containableItemCollection.AddRange(
                 new Product
                 {
                     Category = Category.Beverages,
                     Name = "Cola",
-                    Price = 12.5
+                    Price = 12.5,
+                    Position = new Position
+                    {
+                        Row = 0,
+                        Column = 1
+                    }
+                },
+                new Product
+                {
+                    Category = Category.Snacks,
+                    Name = "Chips",
+                    Price = 10.5,
+                    Position = new Position
+                    {
+                        Row = 0,
+                        Column = 2
+                    }
                 },
                 new Product
                 {
                     Category = Category.Snacks,
                     Name = "Chips",
                     Price = 10.5
+                },
+                new Product
+                {
+                    Category = Category.Beverages,
+                    Name = "Sprite",
+                    Price = 8.5,
+                    Position = new Position
+                    {
+                        Row = 1,
+                        Column = 2
+                    }
                 }
             );
+            WriteContainableItems(containableItemCollection);
 
-            if(products.Contains(coffeeProduct)){
-                products.Remove(coffeeProduct);
+            Console.WriteLine("Remove at position: 0,1");
+
+            try
+            {
+                containableItemCollection.RemoveBy(new Position(0, 1));
+            }
+            catch
+            {
+                Console.WriteLine("No product found at this position.");
             }
 
-            products.RemoveAt(1);
+            WriteContainableItems(containableItemCollection);
 
-            Console.WriteLine("Example using list directly:\n");
-            foreach (Product product in products)
+            Console.WriteLine("Search for a coffee product:");
+            try
             {
-                Console.WriteLine(product.ToString());
+                if (containableItemCollection.Contains(coffeeProduct))
+                {
+                    Console.WriteLine(coffeeProduct.ToString());
+                    Console.WriteLine("\nCoffee product was found and it will be removed.");
+                    containableItemCollection.Remove(coffeeProduct);
+                    WriteContainableItems(containableItemCollection);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Product not found.");
+            }
+
+            Console.WriteLine("Remove second product: ");
+            try
+            {
+                containableItemCollection.RemoveAt(1);
+                WriteContainableItems(containableItemCollection);
+            }
+            catch
+            {
+                Console.WriteLine("Product not found.");
+            }
+
+            Product beverageProduct = containableItemCollection.FirstOrDefault(containableItem => (containableItem as Product).Category == Category.Beverages) as Product;
+
+            Console.WriteLine("Search for the first beverage product using linq:");
+
+            string beverageMessage = beverageProduct == null
+            ? "No beverage found"
+            : $"Beverage Found:\t{beverageProduct.ToString()}";
+
+            Console.WriteLine(beverageMessage);
+
+            try
+            {
+                Console.WriteLine($"\nLast product:\t{containableItemCollection.GetItem(containableItemCollection.Count - 1)}");
+            }
+            catch
+            {
+                Console.WriteLine("Product not found.");
             }
         }
 
-        private static void ProductCollectionFunctionalities()
+        private static void WriteContainableItems(ContainableItemCollection containableItemCollection)
         {
-            ProductCollection productCollection = new ProductCollection();
-            productCollection.Add(
-                new Product{
-                    Category = Category.Beverages,
-                    Name = "Cola",
-                    Price = 12.5
-            });
-            productCollection.Add(
-                new Product{
-                    Category = Category.Snacks,
-                    Name = "Chips",
-                    Price = 10.5
-            });
-
-            Product beverageProduct = productCollection.FirstOrDefault(product=>product.Category==Category.Beverages);
-            Console.WriteLine("\nExample using product Collection:\n");
-            
-            Console.WriteLine($"Beverage:\t{beverageProduct?.ToString()}");
-            Console.WriteLine($"Last product:\t{productCollection.GetItem(productCollection.Count-1)}");
-            Console.WriteLine("\nProducts in productCollection:");
-            foreach (Product product in productCollection)
+            foreach (ContainableItem containableItem in containableItemCollection)
             {
-                Console.WriteLine(product.ToString());
+                Console.WriteLine((containableItem as Product).ToString());
             }
+            Console.WriteLine();
         }
     }
 }
