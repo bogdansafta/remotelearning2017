@@ -2,27 +2,54 @@ using System;
 
 namespace VendingMachine
 {
-    public class Product
+    public class Product : ContainableItem//, IEquatable<Product>
     {
-        private string type {get; set;}
-        private string name {get; set;}
-        private double price {get; set;}
-        private int quantity {get; set;}
-        private int size {get; set;}
+        public string Name { get; set; }
 
-        public Product(string type, string name, double price, int quantity, int size)
+        public int Quantity { get; set; }
+
+        public double Price { get; set; }
+
+        public ProductCategory Category { get; set; }
+
+        public Product(Position position, string name, int quantity, double price, ProductCategory category) : base(position)
         {
-            this.type=type;
-            this.name=name;
-            this.price=price;
-            this.quantity=quantity;
-            this.size=size;
+            this.Name = name;
+            this.Price = price;
+            this.Quantity = quantity;
+            this.Category = category;
         }
 
+
+        /* public bool Equals(Product other)
+        {
+            if (this.Name != other.Name)
+                return false;
+            if (this.Quantity != other.Quantity)
+                return false;
+            if (this.Price != other.Price)
+                return false;
+            if (!this.Position.Equals(other.Position))
+                return false;
+            return true;
+        } */
+
+
+        /*public override bool Equals(object obj)
+        {
+            if(obj==null)
+                return false;
+            Product product=obj as Product;
+            if(product==null)
+                return false;
+            else
+                return this.Equals(product);
+        } */            
+        
+        
         public override string ToString()
         {
-            return "Type: "+this.type+" / Name: "+this.name+" / Price: "+this.price+" / Quantity: "+this.quantity+
-            " / Size: "+this.size;
+            return $"Name: {this.Name} / Price: {this.Price} / Quantity: {this.Quantity} / Category: {this.Category} / Position: {base.Position} ";
         }
     }
 }
