@@ -39,7 +39,7 @@ namespace VendingMachine
 
         public void Add(ContainableItem containableItem)
         {
-            if (this.capacity == this.items.Length)
+            if (this.capacity == this.size)
             {
                 ContainableItem[] itemsCopy = this.items;
                 this.items = new ContainableItem[2 * this.capacity];
