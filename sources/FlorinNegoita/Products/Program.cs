@@ -6,43 +6,67 @@ namespace Products
     {
         static void Main(string[] args)
         {
-            Product product1 = new Product()
+            ProductCategory productCategory1 = new ProductCategory()
             {
-                Type = "Ciocolata",
-                Name = "Milka",
-                Price = 4.2,
-                Quantity = 10,
-                Size = 10
+                Name = "Ciocolata"
             };
 
-            Product product2 = new Product()
+             ProductCategory productCategory2 = new ProductCategory()
             {
-                Type = "Suc",
-                Name = "Sprite",
-                Price = 6.5,
-                Quantity = 10,
-                Size = 2
+                Name = "Suc"
             };
 
-            Product product3 = new Product()
+            Position position1 = new Position()
             {
-                Type = "Chips",
-                Name = "Lays",
-                Price = 2.2,
-                Quantity = 10,
+                Row = 1,
+                Column = 2,
                 Size = 3
             };
 
-            ProductCollection productCollection = new ProductCollection();
-            productCollection.AddProduct(product1);
-            productCollection.AddProduct(product2);
-            productCollection.AddProduct(product3);
-
-            productCollection.Remove(product2);
-
-            for (int i = 0; i < productCollection.Count(); i++)
+            Position position2 = new Position()
             {
-                Console.WriteLine(productCollection.GetItem(i).Name);
+                Row = 2,
+                Column = 1,
+                Size = 4
+            };
+
+             ContainableItem containableItem1 = new Product()
+            {
+               Position = position2,
+               Category = productCategory1,
+               Price = 4.5,
+               Quantity = 3,
+               Name = "Milka"
+            };
+
+            ContainableItem containableItem2 = new Product()
+            {
+               Position = position1,
+               Category = productCategory2,
+               Price = 6.3,
+               Quantity = 2,
+               Name = "Sprite"
+            };
+
+             ContainableItem containableItem3 = new Product()
+            {
+               Position = position1,
+               Category = productCategory1,
+               Price = 3.1,
+               Quantity = 1,
+               Name = "Poiana"
+            };
+
+            ContainableItemsCollection containableItemsCollection = new  ContainableItemsCollection();
+            containableItemsCollection.AddProduct(containableItem1);
+            containableItemsCollection.AddProduct(containableItem2);
+            containableItemsCollection.AddProduct(containableItem3);
+
+            containableItemsCollection.RemoveAt(2);
+
+            for (int i = 0; i < containableItemsCollection.Count(); i++)
+            {
+                Console.WriteLine(containableItemsCollection.GetItem(i));
             }
         }
     }

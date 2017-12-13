@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/Product & ProductCollection.csproj"
+                "${workspaceFolder}/AnimalsOOP/AnimalsOOP.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

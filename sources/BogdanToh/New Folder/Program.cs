@@ -9,18 +9,21 @@ namespace New_Folder
         {
 
             
-            Product p = new Product("Snacks","Lays",5,10,3);
-
-            ProductCollection.AddItem(p);
-            ProductCollection.ShowList();
-            Product emptyProd = new Product();
+            Product p = new Product("Snacks","Lays",5,10,3,new Position(1,1,1));
+            Product p1 = new Product("Snacks","Lays",5,10,3,new Position(1,2,1));
+            Product p2 = new Product("Snacks","Lays",5,10,3,new Position(1,1,2));
+            ContainableItemsCollection.AddItem(p);
+            ContainableItemsCollection.AddItem(p1);
+            ContainableItemsCollection.AddItem(p2);
+            ContainableItemsCollection.ShowList();
+            ContainableItem item = new ContainableItem();
             Console.WriteLine("GetItem");
-            emptyProd=ProductCollection.GetItem(0);
-            Console.WriteLine(emptyProd);
-            Console.WriteLine("Count is "+ProductCollection.Count());
+            item=ContainableItemsCollection.GetItem(0);
+            Console.WriteLine(item);
+            Console.WriteLine("Count is "+ContainableItemsCollection.Count());
             Console.WriteLine("Remove");
-            ProductCollection.RemoveItem(p);
-            ProductCollection.ShowList();
+            ContainableItemsCollection.RemoveItem(p2);
+            ContainableItemsCollection.ShowList();
 
 
         }

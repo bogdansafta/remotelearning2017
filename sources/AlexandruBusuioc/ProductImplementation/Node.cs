@@ -4,6 +4,6 @@ namespace ProductImplementation
     public class Node
     {
         public Node next;
-        public Product product;
+        public ContainableItem item;
     }
 }

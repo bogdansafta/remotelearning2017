@@ -2,7 +2,7 @@ using System;
 
 namespace Product___ProductCollection
 {
-    class ProductCollection<Tip>
+    public class ProductCollection<Tip>
     {
         public int Count { get; set; }
         private Nod<Tip> start;
