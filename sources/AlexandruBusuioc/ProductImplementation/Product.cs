@@ -2,36 +2,37 @@ using System;
 
 namespace ProductImplementation
 {
-    public class Product : IEquatable<Product>
+    public class Product : ContainableItem, IEquatable<Product>
     {
         public string name { get; private set; }
         public double price { get; set; }
         public int quantity { get; set; }
-        public int size { get; private set; }
-        public string type { get; private set; }
-        public Product(string name, double price, int quantity, int size, string type)
+        public ProductCategory category { get; private set; }
+        public Product(Position position, string name, double price, int quantity, ProductCategory category)
         {
+            base.position = position;
             this.name = name;
             this.price = price;
             this.quantity = quantity;
-            this.size = size;
-            this.type = type;
+            this.category = category;
         }
+
         public override string ToString()
         {
-            return $"Name = {name}, Price = {price:0.##}, Quantity = {quantity}, Nr Of Cells Occupied = {size}, Type Of Product = {type}";
+            return $"Name = {name}, Price = {price:0.##}, Quantity = {quantity}, Type Of Product = {category}, Position = {position}";
         }
+
         public bool Equals(Product other)
         {
             if (this.name == other.name &&
             this.price == other.price &&
             this.quantity == other.quantity &&
-            this.size == other.size &&
-            this.type == other.type)
+            this.category == other.category)
                 return true;
             else
                 return false;
         }
+
         public override bool Equals(object obj)
         {
             if (obj == null)
@@ -39,9 +40,15 @@ namespace ProductImplementation
             Product product = obj as Product;
             return Equals(product);
         }
+
         public override int GetHashCode()
         {
-            return this.name.GetHashCode();
+            return this.name.GetHashCode() * 17;
+        }
+
+        public Position GetPosition()
+        {
+            return base.position;
         }
     }
 }
