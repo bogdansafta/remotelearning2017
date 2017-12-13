@@ -50,7 +50,8 @@ namespace VendingMachine
                     Position = new Position
                     {
                         Row = 0,
-                        Column = 2
+                        Column = 2, 
+                        Size = 2
                     }
                 },
                 new Product

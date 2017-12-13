@@ -46,14 +46,14 @@ namespace VendingMachine
 
         public void Add(T item)
         {
-            EnssureCapacity();
+            EnsureCapacity();
             internalItems[currentIndex] = item;
             currentIndex++;
         }
 
         public void AddRange(params T[] items)
         {
-            EnssureCapacity(items.Length);
+            EnsureCapacity(items.Length);
 
             foreach (T item in items)
             {
