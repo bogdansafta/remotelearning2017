@@ -2,56 +2,20 @@ using System;
 
 namespace VendingMachine
 {
-    class Product
-    {  
-        private string name;
-        private float price;
-        private int numberOfCells;
-        private int quantity;
+    public class Product : ContainableItem
+    {
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public Category category = new Category("Any");
+        public int Quantity { get; set; }
 
-        public string Name {
-            get {
-                return name;
-            }
-            set {
-                name = value;
-            }
-        }
-
-        public float Price {
-            get {
-                return price;
-            }
-            set {
-                price = value;
-            }
-        }
-
-        public int NumberOfCells {
-            get {
-                return numberOfCells;
-            }
-            set {
-                numberOfCells = value;
-            }
-        }
-
-        public int Quantity {
-            get {
-                return quantity;
-            }
-            set {
-                quantity = value;
-            }
-        }
-
-        public Product(string name, float price, int numberOfCells, int quantity)
+        public Product(string Name, double Price, Category category, int Quantity, Position position)
         {
-            this.name = name;
-            this.price = price;
-            this.numberOfCells = numberOfCells;
-            this.quantity = quantity;
+            this.Name = Name;
+            this.Price = Price; 
+            this.category = category;
+            this.Quantity = Quantity;
+            base.position = position;
         }
-
     }
 }
