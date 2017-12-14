@@ -11,6 +11,7 @@ namespace VendingMachine
 
         public bool Equals(Product other)
         {
+            //TODO CR @BS, have a look to what I wrote in Position.cs
             if (!Name.Equals(other.Name))
             {
                 return false;

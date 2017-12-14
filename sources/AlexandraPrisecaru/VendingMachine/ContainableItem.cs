@@ -8,6 +8,7 @@ namespace VendingMachine
 
         public bool Equals(ContainableItem other)
         {
+            //TODO CR @BS, have a look of what I wrote in Position.cs
             if (!Position.Equals(other.Position))
             {
                 return false;
