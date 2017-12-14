@@ -3,7 +3,7 @@ namespace VendingMachine
 {
     public class Category
     {
-        public string CategoryName;
+        private string CategoryName;
 
         public Category(string CategoryName)
         {
