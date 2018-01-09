@@ -3,7 +3,8 @@ namespace VendingMachine
 {
     class ContainableItemCollection
     {
-        private Product[] products = new Product[50];
+        private const int MaxLength = 50;
+        private Product[] products = new Product[MaxLength];
         private int sizeIndex = 0;
 
         public void Add(Product product)
@@ -24,10 +25,10 @@ namespace VendingMachine
             }
             return returnedValue;
         }
-
+        
         public void Remove(Product product)
         {
-            if (SearchIndex(product) < 50 && SearchIndex(product) < sizeIndex)
+            if (SearchIndex(product) < MaxLength && SearchIndex(product) < sizeIndex)
             {
                 for (int index = SearchIndex(product); index < sizeIndex; index++)
                 {
@@ -62,13 +63,13 @@ namespace VendingMachine
             int positionToRemove = -1;
             for (int index = 0; index <= sizeIndex; index++)
             {
-                if (products[index].position.Equals(position))
+                if (products[index].Position.Equals(position))
                     positionToRemove = index;
             }
 
             if (positionToRemove != -1)
             {
-                for(int index = positionToRemove; index <sizeIndex ; index++)
+                for (int index = positionToRemove; index < sizeIndex; index++)
                 {
                     products[index] = products[index + 1];
                 }
