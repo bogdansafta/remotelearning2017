@@ -1,34 +1,38 @@
 using System;
+using System.Reflection;
 
 namespace VendingMachine
 {
     public class Position : IEquatable<Position>
     {
-        public int Row { get; set; } = -1;
-        public int Column { get; set; } = -1;
-        public int Size { get; set; } = 1;
+        public int Row { get; private set; }
+        public int Column { get; private set; }
+        public int Size { get; private set; }
+        public int Id { get; private set; }
 
-        public Position(int row = 0, int column = 0, int size = 1)
+        public Position(int row, int column, int id, int size = 1)
         {
             Row = row;
             Column = column;
+            Id = id;
             Size = size;
         }
 
         public bool Equals(Position other)
         {
-            if (Row != other.Row)
+            if (other == null)
             {
                 return false;
             }
-            if (Column != other.Column)
+
+            foreach (PropertyInfo property in this.GetType().GetProperties())
             {
-                return false;
+                if (!property.GetValue(this).Equals(property.GetValue(other)))
+                {
+                    return false;
+                }
             }
-            if (Size != other.Size)
-            {
-                return false;
-            }
+
             return true;
         }
 

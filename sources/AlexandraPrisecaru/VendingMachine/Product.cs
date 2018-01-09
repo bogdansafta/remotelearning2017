@@ -1,4 +1,6 @@
 using System;
+using System.Linq;
+using System.Reflection;
 
 namespace VendingMachine
 {
@@ -11,22 +13,19 @@ namespace VendingMachine
 
         public bool Equals(Product other)
         {
-            if (!Name.Equals(other.Name))
+            if (other == null)
             {
                 return false;
             }
-            if (Price != other.Price)
+
+            foreach (PropertyInfo property in this.GetType().GetProperties())
             {
-                return false;
+                if (!property.GetValue(this).Equals(property.GetValue(other)))
+                {
+                    return false;
+                }
             }
-            if (!Category.Equals(other.Category))
-            {
-                return false;
-            }
-            if (Quantity != other.Quantity)
-            {
-                return false;
-            }
+
             return true;
         }
 

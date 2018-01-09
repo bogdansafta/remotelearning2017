@@ -1,10 +1,13 @@
 namespace VendingMachine
 {
-    public enum Category
+    public class Category
     {
-        Unknown,
-        Beverages,
-        Snacks,
-        Sweets
+        public string Name { get; private set; }
+
+        public Category(string name)
+        {
+            Name = name;
+        }
+
     }
 }

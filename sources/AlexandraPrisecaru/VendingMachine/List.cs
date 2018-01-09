@@ -10,18 +10,6 @@ namespace VendingMachine
         private int size;
         private int currentIndex = 0;
 
-        public List()
-        {
-            size = 4;
-            internalItems = new T[size];
-        }
-
-        public List(int size)
-        {
-            internalItems = new T[size];
-            this.size = size;
-        }
-
         public int Count
         {
             get
@@ -42,6 +30,18 @@ namespace VendingMachine
                 }
                 return internalItems[index];
             }
+        }
+
+        public List()
+        {
+            size = 4;
+            internalItems = new T[size];
+        }
+
+        public List(int size)
+        {
+            internalItems = new T[size];
+            this.size = size;
         }
 
         public void Add(T item)
