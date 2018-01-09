@@ -1,22 +1,22 @@
 using System;
 
-namespace New_Folder
+namespace VendingMachine
 {
-    public class Product : ContainableItem, IEquatable<Product>
+    public class Product :IEquatable<Product>
     {
         
         public Product() { }
 
-        public Product(string category, string name, double price, int quantity, int cells,Position position)
+        public Product(ProductCategory category, string name, double price, int quantity, int cells)
         {
             this.TypeOfProduct = category;
             this.Name = name;
             this.Price = price;
             this.Quantity = quantity;
             this.NrOfCells = cells;
-            this.Position=position;
+            
         }
-        public string TypeOfProduct { get; set; } = "Unknown";
+        public ProductCategory TypeOfProduct { get; set; }
         public string Name { get; set; } = "Product";
         public double Price { get; set; } = 5;
 
@@ -27,21 +27,21 @@ namespace New_Folder
         public override string ToString()
         {
             return $@" 
-                       Type: {this.TypeOfProduct}
+                       Type: {this.TypeOfProduct.ToString()}
                        Name: {this.Name} 
                        Price: {this.Price}
                        Quantity: {this.Quantity}
-                       Cells: {this.NrOfCells}
-                       Position: {this.Position}";
+                       Cells: {this.NrOfCells}";
         }
 
       
 
         public bool Equals(Product product)
         {
-           if (this == null || this.Name != product.Name || this.NrOfCells != this.NrOfCells || this.Position != product.Position
-            || this.Price != product.Price || this.Quantity != product.Quantity)
+           if (this == null || this.Name != product.Name || this.NrOfCells != this.NrOfCells
+            || this.Price != product.Price || this.Quantity != product.Quantity|| this.TypeOfProduct!=product.TypeOfProduct)
             { return false; }
+            
             return true;
         }
     }

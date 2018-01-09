@@ -1,7 +1,7 @@
 
 using System;
 
-namespace New_Folder
+namespace VendingMachine
 {
     public class Node<T>
     {
