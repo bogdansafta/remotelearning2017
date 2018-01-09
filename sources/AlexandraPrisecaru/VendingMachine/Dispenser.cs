@@ -18,6 +18,8 @@ namespace VendingMachine
                 throw new System.Exception("No product found at this id.");
             }
 
+            item.Product.Quantity--;
+
             return item.Product;
         }
     }

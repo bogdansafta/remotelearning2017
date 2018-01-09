@@ -4,7 +4,7 @@ using System.Reflection;
 
 namespace VendingMachine
 {
-    public class Product : ContainableItem, IEquatable<Product>
+    public class Product : IEquatable<Product>
     {
         public string Name { get; set; }
         public double Price { get; set; }
@@ -13,12 +13,7 @@ namespace VendingMachine
 
         public bool Equals(Product other)
         {
-<<<<<<< HEAD
             if (other == null)
-=======
-            //TODO CR @BS, have a look to what I wrote in Position.cs
-            if (!Name.Equals(other.Name))
->>>>>>> b1af3edc8098738e111d289541ff659a5c8293a2
             {
                 return false;
             }
@@ -36,7 +31,7 @@ namespace VendingMachine
 
         public override string ToString()
         {
-            return $"Name: {Name}\tPrice: {Price}\tCategory: {Category} \tPosition: {Position.ToString()}";
+            return $"Name: {Name}\tPrice: {Price}\tCategory: {Category.Name}";
         }
     }
 }

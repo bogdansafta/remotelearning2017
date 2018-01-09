@@ -20,41 +20,47 @@ namespace VendingMachine
                 Category = new Category("Beverages"),
                 Name = "Coffee",
                 Price = 12.3,
-                Position = new Position(row: 0, column: 0, id: 1)
             };
 
             Console.WriteLine("Add a product:");
-            vendingMachine.Items.Add(coffeeProduct);
+            vendingMachine.Items.Add(new ContainableItem
+            {
+                Product = coffeeProduct,
+                Position = new Position(row: 2, column: 0, id: 13, size: 3)
+            });
             WriteContainableItems(vendingMachine.Items);
 
             Console.WriteLine("Add multiple products:");
             vendingMachine.Items.AddRange(
-                new Product
+                new ContainableItem
                 {
-                    Category = new Category("Beverages"),
-                    Name = "Cola",
-                    Price = 12.5,
+                    Product = new Product
+                    {
+                        Category = new Category("Beverages"),
+                        Name = "Cola",
+                        Price = 12.5
+                    },
                     Position = new Position(row: 0, column: 1, id: 2)
                 },
-                new Product
+                new ContainableItem
                 {
-                    Category = new Category("Snacks"),
-                    Name = "Chips",
-                    Price = 10.5,
+                    Product = new Product
+                    {
+                        Category = new Category("Snacks"),
+                        Name = "Chips",
+                        Price = 10.5,
+                    },
                     Position = new Position(row: 0, column: 2, id: 2, size: 2)
                 },
-                new Product
+                new ContainableItem
                 {
-                    Category = new Category("Snacks"),
-                    Name = "Chips",
-                    Price = 10.5
-                },
-                new Product
-                {
-                    Category = new Category("Beverages"),
-                    Name = "Sprite",
-                    Price = 8.5,
-                    Position = new Position(row: 1, column: 2, id: 5)
+                    Product = new Product
+                    {
+                        Category = new Category("Snacks"),
+                        Name = "Chips",
+                        Price = 10.5
+                    },
+                    Position = new Position(row: 0, column: 4, id: 3, size: 1)
                 }
             );
             WriteContainableItems(vendingMachine.Items);
@@ -72,11 +78,12 @@ namespace VendingMachine
             Console.WriteLine("Search for a coffee product:");
             try
             {
-                if (vendingMachine.Items.Contains(coffeeProduct))
+                ContainableItem coffeeContainableItem = vendingMachine.Items.FirstOrDefault(containableItem => containableItem.Product.Equals(coffeeProduct));
+                if (coffeeContainableItem != null)
                 {
                     Console.WriteLine(coffeeProduct.ToString());
                     Console.WriteLine("\nCoffee product was found and it will be removed.");
-                    vendingMachine.Items.Remove(coffeeProduct);
+                    vendingMachine.Items.Remove(coffeeContainableItem);
                     WriteContainableItems(vendingMachine.Items);
                 }
             }
@@ -96,7 +103,7 @@ namespace VendingMachine
                 Console.WriteLine("Product not found.");
             }
 
-            Product beverageProduct = vendingMachine.Items.FirstOrDefault(containableItem => (containableItem as Product).Category.Name.Equals("Beverages")) as Product;
+            Product beverageProduct = vendingMachine.Items.FirstOrDefault(containableItem => containableItem.Product.Category.Name.Equals("Beverages"))?.Product;
 
             Console.WriteLine("Search for the first beverage product using linq:");
 
@@ -108,7 +115,8 @@ namespace VendingMachine
 
             try
             {
-                Console.WriteLine($"\nLast product:\t{vendingMachine.Items.GetItem(vendingMachine.Items.Count - 1)}");
+                ContainableItem lastProduct = vendingMachine.Items.GetItem(vendingMachine.Items.Count - 1);
+                Console.WriteLine($"\nLast product:\t{vendingMachine.Items.GetItem(vendingMachine.Items.Count - 1).Product}");
             }
             catch
             {
@@ -120,7 +128,7 @@ namespace VendingMachine
         {
             foreach (ContainableItem containableItem in containableItemCollection)
             {
-                Console.WriteLine((containableItem as Product).ToString());
+                Console.WriteLine(containableItem.Product.ToString());
             }
 
             Console.WriteLine();
