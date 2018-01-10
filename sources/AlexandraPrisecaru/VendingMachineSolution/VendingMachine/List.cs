@@ -73,7 +73,13 @@ namespace VendingMachine
 
         public bool Contains(T item)
         {
-            if(currentIndex==0){
+            if (item == null)
+            {
+                return false;
+            }
+            
+            if (currentIndex == 0)
+            {
                 return false;
             }
 

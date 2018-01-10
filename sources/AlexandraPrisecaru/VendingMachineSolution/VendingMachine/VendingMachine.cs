@@ -2,11 +2,16 @@ namespace VendingMachine
 {
     public class VendingMachine
     {
+        private static VendingMachine instance;
         public static VendingMachine Instance
         {
             get
             {
-                return new VendingMachine();
+                if (instance == null)
+                {
+                    instance = new VendingMachine();
+                }
+                return instance;
             }
         }
 
