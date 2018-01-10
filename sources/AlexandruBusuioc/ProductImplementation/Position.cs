@@ -3,27 +3,28 @@ namespace ProductImplementation
 {
     public class Position : IEquatable<Position>
     {
-        public int row;
-        public int column;
-        public int size;
-
-        public Position(int row, int column, int size)
+        private int row;
+        private int column;
+        private int size;
+        public int id;
+        public Position(int row, int column, int size, int id)
         {
             this.row = row;
             this.column = column;
             this.size = size;
+            this.id = id;
         }
 
         public override string ToString()
         {
-            return $"Row:{row} Column:{column} Size:{size}";
+            return $"Row:{row} Column:{column} Size:{size} ID:{id}";
         }
 
         public bool Equals(Position other)
         {
             if (this.row == other.row &&
             this.column == other.column &&
-            this.size == other.size)
+            this.size == other.size && this.id == other.id)
                 return true;
             else
                 return false;

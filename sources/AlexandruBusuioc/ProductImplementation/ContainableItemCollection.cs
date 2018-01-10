@@ -65,6 +65,37 @@ namespace ProductImplementation
                 System.Console.WriteLine("Could not find item with specified position");
 
         }
+        public ContainableItem FindByID(int id)
+        {
+            Node temp = head;
+            if (count <= -1)
+                throw new NullReferenceException();
+            if(temp.item.position.id.Equals(id))
+            {
+                return temp.item;
+            }
+            while(temp.next!=null)
+            {
+                if(temp.item.position.id.Equals(id))
+                {
+                    return temp.item;
+                }
+                else
+                {
+                    temp = temp.next;
+                }
+            }
+            if(temp == current && temp.item.position.id.Equals(id))
+            {
+                return temp.item;
+            }
+            else if(temp == current && !temp.item.position.id.Equals(id))
+            {
+                System.Console.WriteLine($"Could not find item with specified ID:{id}");
+                return null;
+            }
+            return null;
+        }
         public void Remove(ContainableItem removed)
         {
             Node temp = head;
@@ -76,14 +107,6 @@ namespace ProductImplementation
             if (removed.Equals(head.item))
             {
                 head = head.next;
-                count--;
-                return;
-            }
-
-            if (removed.Equals(current.item))
-            {
-                current = temp;
-                current.next = null;
                 count--;
                 return;
             }
@@ -101,6 +124,14 @@ namespace ProductImplementation
                     count--;
                     break;
                 }
+            }
+
+            if (removed.Equals(current.item))
+            {
+                current = temp;
+                current.next = null;
+                count--;
+                return;
             }
         }
         public ContainableItem GetItem(int index)
