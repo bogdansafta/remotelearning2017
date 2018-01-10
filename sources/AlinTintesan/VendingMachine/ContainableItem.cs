@@ -2,32 +2,18 @@ using System;
 
 namespace VendingMachine
 {
-    public class ContainableItem //: IEquatable<ContainableItem>
+    public class ContainableItem : IComparable<ContainableItem>
     {
-        public Position Position;
+        public Position Position { get; set; }
+        public Product Product { get; set; }
 
-        public ContainableItem(Position position)
+        public ContainableItem(Position position, Product product)
         {
             this.Position = position;
+            this.Product = product;
         }
-        
 
-        /* public bool Equals(ContainableItem other)
-        {
-            return this.Position.Equals(other);
-        } */
-
-        /* public override bool Equals(object obj)
-        {
-            if (obj == null)
-                return false;
-            ContainableItem containableItem = obj as ContainableItem;
-            if (containableItem == null)
-                return false;
-            else
-                return this.Equals(containableItem);
-
-        } */
+        public int CompareTo(ContainableItem other) => this.CompareTo(other);
 
         public override string ToString() => $"Position: {this.Position} \n";
     }
