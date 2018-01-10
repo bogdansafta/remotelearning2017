@@ -3,17 +3,28 @@ namespace VendingMachine
 {
     class ContainableItemCollection
     {
-        private const int MaxLength = 50;
-        private Product[] products = new Product[MaxLength];
+        private const int defaultMaxSize = 100;
+        private ContainableItem[] products = new ContainableItem[defaultMaxSize];
         private int sizeIndex = 0;
 
-        public void Add(Product product)
+        public ContainableItemCollection(ContainableItem[] products)
+        {
+            this.products = products;
+            sizeIndex = products.Length;
+        }
+
+        public ContainableItemCollection(ContainableItem product)
+        {
+            Add(product);
+        }
+
+        public void Add(ContainableItem product)
         {
             products[sizeIndex] = product;
             sizeIndex++;
         }
 
-        public int SearchIndex(Product product)
+        public int SearchIndex(ContainableItem product)
         {
             int returnedValue = -1;
             for (int index = 0; index <= sizeIndex; index++)
@@ -25,10 +36,10 @@ namespace VendingMachine
             }
             return returnedValue;
         }
-        
-        public void Remove(Product product)
+
+        public void Remove(ContainableItem product)
         {
-            if (SearchIndex(product) < MaxLength && SearchIndex(product) < sizeIndex)
+            if (SearchIndex(product) < 50 && SearchIndex(product) < sizeIndex)
             {
                 for (int index = SearchIndex(product); index < sizeIndex; index++)
                 {
@@ -51,10 +62,21 @@ namespace VendingMachine
             }
         }
 
-        public Product ItemByIndex(int index)
+        public ContainableItem ItemByIndex(int index)
         {
             if (index > sizeIndex)
                 return null;
+            return products[index];
+        }
+
+        public ContainableItem ItemByPosition(Position position)
+        {
+            int index = -1;
+            for (int i = 0; i <= sizeIndex; i++)
+            {
+                if (products[i].Position.Equals(position))
+                    index = i;
+            }
             return products[index];
         }
 
@@ -69,7 +91,7 @@ namespace VendingMachine
 
             if (positionToRemove != -1)
             {
-                for (int index = positionToRemove; index < sizeIndex; index++)
+                for(int index = positionToRemove; index <sizeIndex ; index++)
                 {
                     products[index] = products[index + 1];
                 }
