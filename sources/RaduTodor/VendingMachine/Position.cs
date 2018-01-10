@@ -7,12 +7,14 @@ namespace VendingMachine
         int row;
         int column;
         int size;
+        int ID;
 
         public Position()
         {
             row = 0;
             column = 0;
             size = 0;
+            ID=0;
         }
         public Position(int x, int y, int z)
         {
@@ -20,6 +22,8 @@ namespace VendingMachine
             column = y;
             size = z;
         }
+
+        public int ID1 { get => ID; set => ID = value; }
 
         public bool Equals(Position other)
         {
@@ -32,10 +36,16 @@ namespace VendingMachine
             }
             return false;
         }
+        public bool SameID(int ID)
+        {
+            if (this.ID==ID)
+            return true;
+            else return false;
+        }
 
         public override string ToString()
         {
-            return (row + " " + column + " " + size);
+            return ("Rand:"+row + " Coloana:" + column + " Lungime:" + size + " ID:" + ID);
         }
 
 

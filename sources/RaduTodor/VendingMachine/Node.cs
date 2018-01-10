@@ -7,13 +7,13 @@ namespace VendingMachine
 
         public Node()
         {
-            containableItem = null;
+            containableItem = new ContainableItem();
             To = null;
         }
-        public Node(Product product,Node node,int x, int y, int z)
+        public Node(ContainableItem NewItem,Node NextNode)
         {
-            containableItem=new ContainableItem(product,new Position(x,y,z));
-            To = node;
+            containableItem=NewItem;
+            To = NextNode;
         }
     }
 }

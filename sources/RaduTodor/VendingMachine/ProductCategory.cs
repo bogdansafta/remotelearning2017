@@ -12,6 +12,6 @@ namespace VendingMachine
             Name = x;
         }
 
-        public string Name1 { get => Name; set => Name = value; }
+        public string name { get => Name; set => Name = value; }
     }
 }

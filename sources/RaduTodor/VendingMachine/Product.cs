@@ -2,59 +2,59 @@ using System;
 
 namespace VendingMachine
 {
-    internal class Product : IEquatable<Product>
+    internal class Product 
     {
-        private ProductCategory category;
-        private string name;
-        double Price { get; set; }
-        private int quantity;
+        private ProductCategory Category;
+        private string Name;
+        float Price { get; set; }
+        private int Size;
         public Product()
         {
-            category = null;
-            name = null;
+            Category = null;
+            Name = null;
             Price = 0;
-            SetQuantity(0);
+            SetSize(0);
         }
-        public Product(String tip, String nume, double pret, int cantitate)
+        public Product(String category, String name, float price, int quantity)
         {
-            category = new ProductCategory(tip);
-            name = nume;
-            Price = pret;
-            SetQuantity(cantitate);
+            Category = new ProductCategory(category);
+            Name = name;
+            Price = price;
+            SetSize(quantity);
         }
 
         public override String ToString()
         {
-            return (Gettype() + " " + GetName() + " " + GetQuantity());
+            return (GetCategory() + " " + GetName() + "  Cantitate:" + GetSize()+ " Pret:"+ Price);
         }
-        public string Gettype()
+        public string GetCategory()
         {
-            return category.Name1;
+            return Category.name;
         }
-        public void SetType(string value)
+        public void SetCategory(string value)
         {
-            category.Name1 = value;
+            Category.name = value;
         }
         public string GetName()
         {
-            return name;
+            return Name;
         }
         private void SetName(string value)
         {
-            name = value;
+            Name = value;
         }
-        public int GetQuantity()
+        public int GetSize()
         {
-            return quantity;
+            return Size;
         }
-        public void SetQuantity(int value)
+        public void SetSize(int value)
         {
-            quantity = value;
+            Size = value;
         }
 
         public bool Equals(Product other)
         {
-            if (name == other.name && category.Name1 == other.category.Name1)
+            if (Name == other.Name && Category.name == other.Category.name)
                 return true;
             else
                 return false;
