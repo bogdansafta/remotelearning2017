@@ -1,23 +1,23 @@
 using System;
 
-namespace Products
+namespace VendingMachine
 {
-    public class ProductCollection 
+    public class  ContainableItemsCollection
     {
         private int size;
 
-        private Product[] productList;
+        private ContainableItem[] productList;
 
-        public ProductCollection()
+        public  ContainableItemsCollection()
         {
             size = 0;
-            productList = new Product[size + 1];
+            productList = new ContainableItem[size + 1];
         }
 
-        public void AddProduct(Product product)
+        public void AddProduct(ContainableItem product)
         {
-            Product[] auxiliaryList = productList;
-            productList = new Product[size + 1];
+            ContainableItem[] auxiliaryList = productList;
+            productList = new ContainableItem[size + 1];
 
             for (int i = 0; i < auxiliaryList.Length; i++)
             {
@@ -28,7 +28,7 @@ namespace Products
             size++;
         }
 
-        public Product GetItem(int index)
+        public ContainableItem GetItem(int index)
         {
             if (index >= 0 && index < productList.Length)
                 return productList[index];
@@ -41,7 +41,7 @@ namespace Products
             return size;
         }
 
-        public void Remove(Product product)
+        public void Remove(ContainableItem product)
         {
             for (int i = 0; i < productList.Length; i++)
             {
@@ -52,6 +52,15 @@ namespace Products
                         productList[j] = productList[j + 1];
                     }
                 }
+            }
+            size--;
+        }
+
+        public void RemoveAt(int index)
+        {
+            for (int i = index; i < productList.Length - 1; i++)
+            {
+                productList[i] = productList[i + 1];
             }
             size--;
         }
