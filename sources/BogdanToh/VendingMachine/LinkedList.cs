@@ -2,9 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace New_Folder
+namespace VendingMachine
 {
-    class LinkedList<T> : IEnumerable<T>
+   public class LinkedList<T> : IEnumerable<T>
     {
         private Node<T> head;
         private Node<T> lastNode;
@@ -51,7 +51,9 @@ namespace New_Folder
             {
 
                 while (findObj.next != lastNode)
+                {
                     findObj = findObj.next;
+                }
                 findObj.next = null;
                 lastNode = findObj;
                 Count--;
