@@ -36,7 +36,7 @@ namespace VendingMachine
             }
             return false;
         }
-        public bool SameID(int ID)
+        public bool HasSameID(int ID)
         {
             if (this.ID==ID)
             return true;

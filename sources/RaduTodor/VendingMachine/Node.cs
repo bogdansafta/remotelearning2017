@@ -1,3 +1,5 @@
+using System;
+
 namespace VendingMachine
 {
     internal class Node
@@ -14,6 +16,18 @@ namespace VendingMachine
         {
             containableItem=NewItem;
             To = NextNode;
+        }
+        public Boolean HasSameID(int ID)
+        {
+            return containableItem.position.HasSameID(ID);
+        }
+        public int GetQuantity()
+        {
+            return containableItem.product.GetSize();
+        }
+        public void SetQuantity(int Quantity)
+        {
+            containableItem.product.SetSize(Quantity);
         }
     }
 }

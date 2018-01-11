@@ -2,59 +2,59 @@ using System;
 
 namespace VendingMachine
 {
-    internal class Product 
+    internal class Product
     {
-        private ProductCategory Category;
-        private string Name;
-        float Price { get; set; }
-        private int Size;
+        private ProductCategory category;
+        private string name;
+        public double price;
+        private int size;
         public Product()
         {
-            Category = null;
-            Name = null;
-            Price = 0;
+            category = null;
+            name = null;
+            price = 0;
             SetSize(0);
         }
-        public Product(String category, String name, float price, int quantity)
+        public Product(String category, String name, double price, int quantity)
         {
-            Category = new ProductCategory(category);
-            Name = name;
-            Price = price;
+            this.category = new ProductCategory(category);
+            this.name = name;
+            this.price = price;
             SetSize(quantity);
         }
 
         public override String ToString()
         {
-            return (GetCategory() + " " + GetName() + "  Cantitate:" + GetSize()+ " Pret:"+ Price);
+            return (GetCategory() + " " + GetName() + "  Cantitate:" + GetSize() + " Pret:" + price);
         }
         public string GetCategory()
         {
-            return Category.name;
+            return category.name;
         }
         public void SetCategory(string value)
         {
-            Category.name = value;
+            category.name = value;
         }
         public string GetName()
         {
-            return Name;
+            return name;
         }
         private void SetName(string value)
         {
-            Name = value;
+            name = value;
         }
         public int GetSize()
         {
-            return Size;
+            return size;
         }
         public void SetSize(int value)
         {
-            Size = value;
+            size = value;
         }
 
         public bool Equals(Product other)
         {
-            if (Name == other.Name && Category.name == other.Category.name)
+            if (name == other.name && category.name == other.category.name)
                 return true;
             else
                 return false;
