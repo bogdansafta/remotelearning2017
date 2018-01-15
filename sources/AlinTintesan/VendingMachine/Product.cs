@@ -13,6 +13,7 @@ namespace VendingMachine
         public ProductCategory Category { get; set; }
 
         public Product() { }
+        
         public Product(Position position, string name, int quantity, double price, ProductCategory category) 
         {
             this.Name = name;
