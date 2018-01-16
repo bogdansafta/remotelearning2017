@@ -18,7 +18,12 @@ namespace VendingMachine
             collection.Add(ci1);
             collection.Add(ci2);
             Dispenser dispenser=new Dispenser(collection);
-            dispenser.Dispense(1);
+            //dispenser.Dispense(1);
+            Payment payment=new BanknotePayment(1);
+            PaymentTerminal paymentTerminal=new PaymentTerminal(dispenser);
+            paymentTerminal.Pay(1,payment);
+
+
         }
     }
 }

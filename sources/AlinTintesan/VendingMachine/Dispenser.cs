@@ -27,5 +27,10 @@ namespace VendingMachine
                 return productToDispense;
             }
         }
+
+        public Product GetProductByID(int id)
+        {
+            return this.containableItemsCollection.GetProductByID(id);
+        }
     }
 }

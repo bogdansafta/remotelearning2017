@@ -47,7 +47,7 @@ namespace VendingMachine
         {
             for(int index=0; index<this.size; index++)
             {
-                ContainableItem itemToReturn=new ContainableItem(this.items[index].Position, this.items[index].Product);
+                ContainableItem itemToReturn=this.items[index];
                 if(itemToReturn.Position.ID.Equals(ID) && itemToReturn.Product.Quantity>=1)
                     return itemToReturn.Product;
             }
