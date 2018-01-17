@@ -24,6 +24,14 @@ namespace VendingMachine
             sizeIndex++;
         }
 
+        public int Count
+        {
+            get
+            {
+                return sizeIndex;
+            }
+        }
+
         public int SearchIndex(ContainableItem product)
         {
             int returnedValue = -1;
@@ -35,6 +43,43 @@ namespace VendingMachine
                 }
             }
             return returnedValue;
+        }
+
+
+
+        public ContainableItem ItemByIndex(int index)
+        {
+            if (index > sizeIndex)
+            {
+                return null;
+            }
+            return products[index];
+        }
+
+        public ContainableItem ItemByPosition(Position position)
+        {
+            int index = -1;
+            for (int i = 0; i <= sizeIndex; i++)
+            {
+                if (products[i].Position.Equals(position))
+                {
+                    index = i;
+                }
+            }
+            return products[index];
+        }
+
+        public ContainableItem ItemById(int id)
+        {
+            int index = -1;
+            for (int i = 0; i <= sizeIndex; i++)
+            {
+                if (products[i].Position.Id == id)
+                {
+                    index = i;
+                }
+            }
+            return products[index]
         }
 
         public void Remove(ContainableItem product)
@@ -54,30 +99,10 @@ namespace VendingMachine
             }
         }
 
-        public int Count
+        public void RemoveById(int Id)
         {
-            get
-            {
-                return sizeIndex;
-            }
-        }
-
-        public ContainableItem ItemByIndex(int index)
-        {
-            if (index > sizeIndex)
-                return null;
-            return products[index];
-        }
-
-        public ContainableItem ItemByPosition(Position position)
-        {
-            int index = -1;
-            for (int i = 0; i <= sizeIndex; i++)
-            {
-                if (products[i].Position.Equals(position))
-                    index = i;
-            }
-            return products[index];
+            ContainableItem itemToRemove = ItemById(Id);
+            Remove(itemToRemove);
         }
 
         public void RemoveByPosition(Position position)
@@ -91,7 +116,7 @@ namespace VendingMachine
 
             if (positionToRemove != -1)
             {
-                for(int index = positionToRemove; index <sizeIndex ; index++)
+                for (int index = positionToRemove; index < sizeIndex; index++)
                 {
                     products[index] = products[index + 1];
                 }
