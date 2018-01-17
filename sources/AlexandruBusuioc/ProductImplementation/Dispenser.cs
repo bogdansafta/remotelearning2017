@@ -8,21 +8,29 @@ namespace ProductImplementation
         {
             this.collection = collection;
         }
-
-        public Product Dispense(int id)
+        private ContainableItem VerifyCollection(int id)
         {
-            if(collection.Count<1)
+            if (collection.Count < 1)
             {
-                System.Console.WriteLine("Collection is empty!");
-                return null;
+                throw new Exception("Collection is empty!");
             }
             ContainableItem toDispense = collection.FindByID(id);
-            if(toDispense==null)
+            if (toDispense == null)
             {
-                return null;
+                throw new NullReferenceException();
             }
-            System.Console.WriteLine($"Removing:{toDispense}");
-            collection.Remove(toDispense);
+            return toDispense;
+        }
+        public void Dispense(int id)
+        {
+            ContainableItem toDispense = VerifyCollection(id);
+            System.Console.WriteLine($"Dispensing:{toDispense.product.Name}");
+            toDispense.product.Quantity--;
+        }
+
+        public Product GetProduct(int id)
+        {
+            ContainableItem toDispense = VerifyCollection(id);
             return toDispense.product;
         }
     }

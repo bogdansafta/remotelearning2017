@@ -33,66 +33,65 @@ namespace ProductImplementation
             }
             count++;
         }
-        public void RemoveByPosition(Position pos)
+        public void RemoveByPosition(Position position)
         {
-            Node temp = head;
+            Node element = head;
             if (count <= -1)
                 throw new NullReferenceException();
-            if(temp.item.position.Equals(pos))
+            if (element.item.position.Equals(position))
             {
-                ContainableItem toDelete = temp.item;
+                ContainableItem toDelete = element.item;
                 Remove(toDelete);
                 return;
             }
-            while(temp.next!=null)
+            while (element.next != null)
             {
-                if(temp.item.position.Equals(pos))
+                if (element.item.position.Equals(position))
                 {
-                    ContainableItem toDelete = temp.item;
+                    ContainableItem toDelete = element.item;
                     Remove(toDelete);
                 }
                 else
                 {
-                    temp = temp.next;
+                    element = element.next;
                 }
             }
-            if(temp == current && temp.item.position.Equals(pos))
+            if (element == current && element.item.position.Equals(position))
             {
-                ContainableItem toDelete = temp.item;
+                ContainableItem toDelete = element.item;
                 Remove(toDelete);
             }
-            else if(temp == current && !temp.item.position.Equals(pos))
-                System.Console.WriteLine("Could not find item with specified position");
+            else if (element == current && !element.item.position.Equals(position))
+                throw new Exception("Element not found!");
 
         }
         public ContainableItem FindByID(int id)
         {
-            Node temp = head;
+            Node element = head;
             if (count <= -1)
                 throw new NullReferenceException();
-            if(temp.item.position.id.Equals(id))
+            if (element.item.position.id.Equals(id))
             {
-                return temp.item;
+                return element.item;
             }
-            while(temp.next!=null)
+            while (element.next != null)
             {
-                if(temp.item.position.id.Equals(id))
+                if (element.item.position.id.Equals(id))
                 {
-                    return temp.item;
+                    return element.item;
                 }
                 else
                 {
-                    temp = temp.next;
+                    element = element.next;
                 }
             }
-            if(temp == current && temp.item.position.id.Equals(id))
+            if (element == current && element.item.position.id.Equals(id))
             {
-                return temp.item;
+                return element.item;
             }
-            else if(temp == current && !temp.item.position.id.Equals(id))
+            else if (element == current && !element.item.position.id.Equals(id))
             {
-                System.Console.WriteLine($"Could not find item with specified ID:{id}");
-                return null;
+                throw new Exception("Element not found!");
             }
             return null;
         }
@@ -134,36 +133,31 @@ namespace ProductImplementation
                 return;
             }
         }
-        public ContainableItem GetItem(int index)
-        {
-            if (count <= -1)
-                throw new NullReferenceException();
-            if (index > count)
-                throw new ArgumentOutOfRangeException();
-
-            Node temp = head;
-
-            if (index == 0)
-                return head.item;
-
-            if (index == count)
-                return current.item;
-
-            for (int i = 0; i < index; i++)
-                temp = temp.next;
-
-            if (temp == null)
-                throw new Exception("Element not found!");
-            else
-                return temp.item;
-
-        }
 
         public ContainableItem this[int index]
         {
             get
             {
-                return GetItem(index);
+                if (count <= -1)
+                    throw new NullReferenceException();
+                if (index > count)
+                    throw new ArgumentOutOfRangeException();
+
+                Node temp = head;
+
+                if (index == 0)
+                    return head.item;
+
+                if (index == count)
+                    return current.item;
+
+                for (int i = 0; i < index; i++)
+                    temp = temp.next;
+
+                if (temp == null)
+                    throw new Exception("Element not found!");
+                else
+                    return temp.item;
             }
         }
     }
