@@ -15,7 +15,7 @@ namespace VendingMachine
             }
         }
 
-        public ContainableItemCollection Items { get; set; }
+        public ContainableItemCollection Items { get; private set; }
 
         private VendingMachine()
         {

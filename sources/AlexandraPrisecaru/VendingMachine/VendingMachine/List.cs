@@ -8,7 +8,7 @@ namespace VendingMachine
     {
         private T[] internalItems;
         private int size;
-        private int currentIndex = 0;
+        private int currentIndex;
 
         public int Count
         {
@@ -24,10 +24,11 @@ namespace VendingMachine
         {
             get
             {
-                if (index >= size)
+                if (index < 0 || index >= size)
                 {
                     throw new IndexOutOfRangeException();
                 }
+                
                 return internalItems[index];
             }
         }
@@ -77,7 +78,7 @@ namespace VendingMachine
             {
                 return false;
             }
-            
+
             if (currentIndex == 0)
             {
                 return false;
