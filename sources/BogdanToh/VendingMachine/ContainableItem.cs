@@ -6,6 +6,7 @@ namespace VendingMachine
         public Product Product{get; private set;}
         public ContainableItem(Product product,Position position)
         {
+            
             this.Product = product;
             this.Position = position;
         }
