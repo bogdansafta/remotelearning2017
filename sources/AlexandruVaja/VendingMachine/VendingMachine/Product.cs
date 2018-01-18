@@ -4,13 +4,12 @@ using System.Text;
 
 namespace VendingMachine
 {
-    class Product : ContainableItem, IEquatable<Product>
+    public class Product : ContainableItem, IEquatable<Product>
     {
         public string TypeProduct { get; set; }
         public string NameProduct { get; set; }
         public double PriceProduct { get; set; }
         public int QuantityProduct { get; set; }
- 
 
         public Product()
         {
@@ -18,7 +17,6 @@ namespace VendingMachine
             NameProduct = null;
             PriceProduct = 0.0;
             QuantityProduct = 0;
-
         }
 
         public Product(string newTypeProduct, string newNameProduct, double newPriceProduct, int newQuantityProduct)
@@ -29,19 +27,24 @@ namespace VendingMachine
             this.QuantityProduct = newQuantityProduct;
         }
 
-        public override String ToString() => $"TypeProduct = {TypeProduct} NameProduct = {NameProduct} PriceProduct = {PriceProduct} QuantityProduct = {QuantityProduct}";
-
         public bool Equals(Product other)
         {
-            if (!TypeProduct.Equals(other.TypeProduct))
+            if (other == null)
                 return false;
-            if (!NameProduct.Equals(other.NameProduct))
-                return false;
-            if (!PriceProduct.Equals(other.PriceProduct))
-                return false;
-            if (!QuantityProduct.Equals(other.QuantityProduct))
-                return false;
+            else
+            {
+                if (!TypeProduct.Equals(other.TypeProduct))
+                    return false;
+                if (!NameProduct.Equals(other.NameProduct))
+                    return false;
+                if (!PriceProduct.Equals(other.PriceProduct))
+                    return false;
+                if (!QuantityProduct.Equals(other.QuantityProduct))
+                    return false;
+            }
             return true;
         }
+
+        public override String ToString() => $"TypeProduct = {TypeProduct} NameProduct = {NameProduct} PriceProduct = {PriceProduct} QuantityProduct = {QuantityProduct}";
     }
 }

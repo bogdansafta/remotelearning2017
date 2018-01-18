@@ -6,25 +6,49 @@ using System.Text;
 
 namespace VendingMachine
 {
-    class ContainableItemCollection<T> : ProductList<ContainableItem>
+    public class ContainableItemCollection 
     {
-        ProductList<ContainableItem> productList = new ProductList<ContainableItem>();
+       List<ContainableItem> productList = new List<ContainableItem>();
 
-        public void Add(Product newProduct)
+        public void Add(ContainableItem newProduct)
         {
             productList.Add(newProduct);
         }
 
-        public void Remove(Product product)
+        public void Remove(ContainableItem product)
         {
             productList.Remove(product);
         }
 
         public int Count() => productList.Count();
 
-        public Product GetItem(int pozition)
+        public ContainableItem GetItem(int index) => productList.GetItem(index) as ContainableItem;
+
+        public ContainableItem GetByPosition(int idProduct) 
         {
-            return productList.GetItem(pozition) as Product;
+            for (int index = 0; index < productList.Count(); index++)
+            {
+                ContainableItem item = productList.GetItem(index);
+                if (item.Position.ID.Equals(idProduct) && item.Product.QuantityProduct >= 1)
+                    return item.Product;
+            }
+            return null;
+
+           /* for (int i = 0; i < productList.Count(); i++)
+                if (productList.GetItem(i).Equals(position))
+                    return productList.GetItem(i) as ContainableItem;
+            return null;*/
+        }
+
+        public Product GetProductByID(int ID)
+        {
+            for (int index = 0; index < productList.Count(); index++)
+            {
+                ContainableItem item = productList.GetItem(index);
+                if (item.Position.ID.Equals(ID) && item.Product.QuantityProduct >= 1)
+                    return item.Product;
+            }
+            return null;
         }
     }
 }

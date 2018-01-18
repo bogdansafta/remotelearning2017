@@ -6,10 +6,10 @@ using System.Text;
 
 namespace VendingMachine
 {
-    class ProductList<T> : ICollection
+    public class List<T> : ICollection
     {
-        object[] elementData;
-        object[] INITIAL_DATA = { };
+        T[] elementData;
+        T[] INITIAL_DATA = { };
         int INITIAL_CAPACITY = 0;
         int size;
 
@@ -19,32 +19,32 @@ namespace VendingMachine
 
         public object SyncRoot => throw new NotImplementedException();
 
-        public ProductList()
+        public List()
         {
             this.elementData = INITIAL_DATA;
         }
 
-        public ProductList(int initialCapacity)
+        public List(int initialCapacity)
         {
             if (initialCapacity < 0)
                 throw new ArgumentOutOfRangeException("Capacitate initiala negativa!");
-            elementData = new object[initialCapacity];
+            elementData = new T[initialCapacity];
         }
 
-        public ProductList(ICollection collection)
+        public List(ICollection collection)
         {
             if (collection == null)
                 throw new ArgumentNullException("Nu exista nici un element in colectie!");
             size = collection.Count;
-            elementData = new object[collection.Count];
+            elementData = new T[collection.Count];
             collection.CopyTo(elementData, 0);
         }
 
         public void Add(T newObject)
         {
-            object[] copyData = elementData;
+            T[] copyData = elementData;
             ++size;
-            elementData = new object[size];
+            elementData = new T[size];
             for (int i = 0; i < copyData.Length; i++)
                 elementData[i] = copyData[i];
             elementData[size - 1] = newObject;
@@ -75,7 +75,7 @@ namespace VendingMachine
 
         public void Remove(T element)
         {
-            object[] copyData = new object[size - 1];
+            T[] copyData = new T[size - 1];
             Boolean ok = true;
             for (int i = 0; i < elementData.Length - 1; i++)
             {
@@ -87,7 +87,7 @@ namespace VendingMachine
                 if (!ok)
                     copyData[i] = elementData[i + 1];
             }
-            elementData = new object[copyData.Length];
+            elementData = new T[copyData.Length];
             elementData = copyData;
             size--;
         }
@@ -96,7 +96,7 @@ namespace VendingMachine
             return this.size;
         }
 
-        public object GetItem(int x)
+        public T GetItem(int x)
         {
             return elementData[x];
         }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VendingMachine
 {
-    class ProductCategory
+    public class ProductCategory
     {
         public string Name { get; set; }
 
@@ -14,6 +14,5 @@ namespace VendingMachine
         }
 
         public override string ToString() => $"Name = {Name}";
-
     }
 }

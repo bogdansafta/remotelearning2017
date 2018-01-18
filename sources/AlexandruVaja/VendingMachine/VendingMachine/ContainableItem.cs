@@ -4,13 +4,27 @@ using System.Text;
 
 namespace VendingMachine
 {
-    class ContainableItem : IEquatable<ContainableItem>
+    public class ContainableItem : IEquatable<ContainableItem>
     {
-        public Position productPosition = new Position();
+        public Position Position { get; set; }
+        public Product Product{ get; set; }
+
+        public ContainableItem()
+        {
+            Position = new Position();
+            Product = new Product();
+        }
+
+        public ContainableItem(Position position, Product product)
+        {
+            Position = position;
+            Product = product;
+
+        }
 
         public bool Equals(ContainableItem other)
         {
-            if (Equals(other.productPosition)) //!Position.Equals(other.productPosition)
+            if (!Position.Equals(other.Position) || !Product.Equals(other.Product))
                 return false;
             return true;
         }
