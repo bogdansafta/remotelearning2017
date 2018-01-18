@@ -79,6 +79,9 @@ namespace VendingMachine
             ContainableItemsCollection containableItemsCollection = new ContainableItemsCollection();
             Dispenser dispenser = new Dispenser(containableItemsCollection);
 
+            PaymentTerminal paymentTerminal = new PaymentTerminal(dispenser);
+            Payment payment = new BanknotePayment();
+
             containableItemsCollection.AddProduct(containableItem1);
             containableItemsCollection.AddProduct(containableItem2);
             containableItemsCollection.AddProduct(containableItem3);
@@ -90,8 +93,12 @@ namespace VendingMachine
                 Console.WriteLine(containableItemsCollection.GetItem(i));
             }
 
-            Product dispenseProduct = dispenser.Dispense(0);
-            Console.WriteLine(dispenseProduct);
+            Console.WriteLine("After dispense:");
+
+            paymentTerminal.Pay(0, payment, 50 );
+
+            //Product dispenseProduct = dispenser.Dispense(0);
+           // Console.WriteLine(dispenseProduct);
         }
     }
 }
