@@ -6,6 +6,6 @@ namespace VendingMachine
     {
         public string Name { get; set; }
 
-        public override string ToString() => $" Name: {Name} ";
+        public override string ToString() => $"{Name} ";
     }
 }
