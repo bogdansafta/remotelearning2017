@@ -2,11 +2,12 @@ using System;
 using System.Linq;
 namespace Vending_machine_V2
 {
-    public class Dispenser
+    public class Dispenser:IPaymentSubscribe
     {
         private static List<ContainableItem> productList = ContainableItemCollection.GetList();
         public Product DispenseProduct(int identify)
         {
+            Notify();
             ContainableItem item = productList.FirstOrDefault(itemToDispense => itemToDispense.position.id == identify);
             if (item == null)
             {

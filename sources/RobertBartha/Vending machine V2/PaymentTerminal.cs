@@ -2,7 +2,7 @@ using System;
 
 namespace Vending_machine_V2
 {
-    public class PaymentTerminal
+    public class PaymentTerminal : IPaymentNotify
     {
         public Dispenser dispenser;
         public Payment payment;
@@ -32,10 +32,14 @@ namespace Vending_machine_V2
             {
                 Console.WriteLine("Choose an available option");
             }
-            if(payment.Change(product.price))
+            if (payment.Change(product.price))
             {
                 dispenser.DispenseProduct(id);
             }
+        }
+        public void Update(object product)
+        {
+
         }
     }
 }

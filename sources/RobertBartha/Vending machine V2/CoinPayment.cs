@@ -4,9 +4,9 @@ namespace Vending_machine_V2
 {
     public class CoinPayment : Payment
     {
+        float paid = 0;
         public override bool Change(double price)
         {
-            float paid = 0;
             while (paid < price)
             {
                 Console.WriteLine("Please insert coins");
@@ -22,6 +22,12 @@ namespace Vending_machine_V2
             }
             Console.WriteLine("Amount of change: {0}", paid - price);
             return true;
+        }
+        public override bool IsValid(Product product)
+        {
+            if (product.price == paid)
+                return true;
+            return false;
         }
     }
 }
