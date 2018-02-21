@@ -7,7 +7,8 @@ namespace VendingMachine
         public override bool Change(double price)
         {
             Random random = new Random();
-            return (random.Next(1, 3) == 1);
+            IsValid = (random.Next(1, 3) == 1);
+            return IsValid;
         }
     }
 }

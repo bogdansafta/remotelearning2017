@@ -2,7 +2,7 @@ using System;
 
 namespace VendingMachine
 {
-    internal class Dispenser
+    internal class Dispenser : IPaymentListener
     {
         private ContainableItemsCollection collection;
 
@@ -23,6 +23,11 @@ namespace VendingMachine
             else
                 throw new MyException("No product on this ID");
 
+        }
+
+        public void Update()
+        {
+            Console.WriteLine("A product has been disposed");
         }
     }
 }

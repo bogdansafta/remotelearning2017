@@ -22,10 +22,16 @@ namespace VendingMachine
             }
             Dispenser dispenser = new Dispenser(Produse);
             PaymentTerminal paymentTerminal = new PaymentTerminal(dispenser);
-            paymentTerminal.Pay(1, 2);
-            paymentTerminal.Pay(2, 1);
-            paymentTerminal.Pay(1, 3);
-            //paymentTerminal.Pay(3,1);
+            int IDProduct = -1;
+            int Option = -1;
+            while (Option != 0 && IDProduct != 0)
+            {
+                Console.WriteLine("ID Product:");
+                int.TryParse(Console.ReadLine(), out IDProduct);
+                Console.WriteLine("Payment Option: (1-Coins;2-Banknote;3-Card)");
+                int.TryParse(Console.ReadLine(), out Option);
+                paymentTerminal.Pay(IDProduct, Option);
+            }
             Temp = Produse.GetFirst();
             for (int i = 0; i < Produse.Count(); i++)
             {
@@ -33,7 +39,6 @@ namespace VendingMachine
                 Temp = Temp.To;
             }
             Console.ReadLine();
-
         }
         static void p_LocationOverlap(object sender, EventArgs e)
         {

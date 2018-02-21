@@ -6,19 +6,21 @@ namespace VendingMachine
     {
         public override bool Change(double price)
         {
-            double paid = 0;
-            while (paid < price)
+            IsValid = false;
+            while (Accumulate < price)
             {
                 Console.WriteLine("Insert Banknotes");
                 double inserted;
                 double.TryParse(Console.ReadLine(), out inserted);
                 if (inserted == 50 || inserted == 10 || inserted == 5 || inserted == 1)
-                    paid = paid + inserted;
+                    Accumulate = Accumulate + inserted;
                 else
                     throw new MyException("Money not accepted");
             }
-            Console.WriteLine(ChangeGiven(paid - price));
-            return true;
+            Console.WriteLine(ChangeGiven(Accumulate - price));
+            Accumulate = 0;
+            IsValid = true;
+            return IsValid;
         }
 
         private String ChangeGiven(double change)
