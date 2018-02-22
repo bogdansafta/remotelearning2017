@@ -11,9 +11,9 @@ namespace ProductImplementation
             ProductCategory candyCategory = new ProductCategory("Candy");
             ProductCategory utilityCategory = new ProductCategory("Utility");
 
-            Product candybar = new Product("Candybar", 10.3f, 6, candyCategory);
-            Product bubblegum = new Product("Bubblegum", 5.221111111111f, 10, candyCategory);
-            Product toothpick = new Product("Toothpick", 1f, 999, utilityCategory);
+            Product candybar = new Product("Candybar", 10, 5, candyCategory);
+            Product bubblegum = new Product("Bubblegum", 5, 10, candyCategory);
+            Product toothpick = new Product("Toothpick", 1.1m, 900, utilityCategory);
 
             ContainableItem first = new ContainableItem(new Position(0, 0, 1, 0), candybar);
             ContainableItem second = new ContainableItem(new Position(0, 1, 2, 1), bubblegum);
@@ -24,32 +24,56 @@ namespace ProductImplementation
             col.Add(third);
 
             Dispenser dispenser = new Dispenser(col);
-            PaymentTerminal terminal = new PaymentTerminal(dispenser, 100000, 1);
-
-            Console.WriteLine("You will be paying by coins (other methods unimplemented)");
-            Console.WriteLine("How many coins do you have in your wallet?");
-            int numberOfCoins = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("How much does one coin value?");
-            int coinValue = Int32.Parse(Console.ReadLine());
-
-            Payment payment = new CoinPayment(numberOfCoins, coinValue);
+            PaymentTerminal terminal = new PaymentTerminal();
+            terminal.Subscribe(dispenser);
 
             Console.WriteLine();
+
             Console.WriteLine("Select a product (insert ID):");
             for (int index = 0; index < col.Count; index++)
             {
                 Console.WriteLine($"{col[index].position.id}:{col[index].product.Name}");
             }
+
             int choice = Int32.Parse(Console.ReadLine());
-            terminal.Pay(choice, payment);
+            decimal amountToPay = col.FindByID(choice).product.Price;
+
             Console.WriteLine();
 
+            System.Console.WriteLine("1.Pay with Credit Card");
+            System.Console.WriteLine("2.Pay with Coins");
+            System.Console.WriteLine("Select the desired payment method");
 
+            int paymentChoice = Int32.Parse(Console.ReadLine());
 
+            switch (paymentChoice)
+            {
+                case 1:
+                    System.Console.WriteLine("Insert your credit card pin:");
+                    int pin = Int32.Parse(Console.ReadLine());
 
+                    CreditCard card = new CreditCard(pin);
+                    Payment payment = new CreditCardPayment(card);
 
+                    terminal.Pay(choice, payment);
+                
+                    break;
+                case 2:
+                    System.Console.WriteLine("How many coins do you have in your wallet:");
+                    int nrOfCoins = Int32.Parse(Console.ReadLine());
+                    System.Console.WriteLine("How much does one coin value:");
+                    int coinValue = Int32.Parse(Console.ReadLine());
+        
+                    payment = new CoinPayment(nrOfCoins, coinValue);
+                    terminal.Pay(choice, payment, amountToPay);
 
+                    break;
+                default:
+                    System.Console.WriteLine("Please press 1 or 2... :(");
+                    break;
 
+            }
+            Console.ReadKey();
         }
     }
 }
