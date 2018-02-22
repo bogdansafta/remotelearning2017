@@ -1,11 +1,12 @@
 using System;
 namespace VendingMachine
 {
-    abstract class Payment
+    public abstract class Payment
     {        
-        public Change(double paid, double price)
+        
+        public Decimal Change(Decimal paid, Decimal price)
         {
-            double change = paid - price;
+            Decimal change = paid - price;
             return change;
         }
     }

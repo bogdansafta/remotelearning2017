@@ -4,6 +4,6 @@ namespace VendingMachine
 {
     class Banknote : Payment
     {
-        public int Value { get; set; }
+        public Decimal Value { get; set; }
     }
 }

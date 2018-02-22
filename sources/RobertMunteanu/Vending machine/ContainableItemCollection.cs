@@ -7,6 +7,10 @@ namespace VendingMachine
         private ContainableItem[] products = new ContainableItem[defaultMaxSize];
         private int sizeIndex = 0;
 
+        public ContainableItemCollection()
+        {
+            
+        }
         public ContainableItemCollection(ContainableItem[] products)
         {
             this.products = products;
@@ -79,7 +83,7 @@ namespace VendingMachine
                     index = i;
                 }
             }
-            return products[index]
+            return products[index];
         }
 
         public void Remove(ContainableItem product)
@@ -124,3 +128,4 @@ namespace VendingMachine
             }
         }
     }
+}

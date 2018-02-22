@@ -3,13 +3,19 @@ namespace VendingMachine
 {
     class Dispenser
     {
-        private ContainableItemCollection collection;
+        private ContainableItemCollection collection = new ContainableItemCollection();
 
-        public Product Dispense(int Id)
+        public Product Dispense(Position position)
         {
-            Product productToReturn = collection.ItemById(Id).Product;
-            collection.RemoveById(Id);
-            return productToReturn;
+            if (collection.Count > 0)
+            {
+                ContainableItem itemToDispense = new ContainableItem(position);
+                Product productToDispense = itemToDispense.Product;
+                collection.RemoveByPosition(position);
+                return productToDispense;
+            }
+            else
+                return null;
         }
     }
 }
