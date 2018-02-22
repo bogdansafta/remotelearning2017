@@ -1,7 +1,7 @@
 using System;
 namespace VendingMachine
 {
-    class Dispenser
+    class Dispenser : IPaymentListener
     {
         private ContainableItemCollection collection = new ContainableItemCollection();
 
@@ -12,10 +12,18 @@ namespace VendingMachine
                 ContainableItem itemToDispense = new ContainableItem(position);
                 Product productToDispense = itemToDispense.Product;
                 collection.RemoveByPosition(position);
+                Update();
                 return productToDispense;
             }
             else
+            {
+                Update();
                 return null;
+            }
+        }
+
+        public void Update()
+        {
         }
     }
 }

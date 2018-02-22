@@ -18,10 +18,11 @@ namespace VendingMachine
             }
         }
 
-        public Coin giveChange(Decimal paid, Decimal price)
+        public Coin GiveChange(Decimal price)
         {
             Coin change = new Coin();
-            change.Value = change.Change(paid, price);
+            change.Value = change.Change(price);
+            Credit = 0;
             return change;
         }
     }
