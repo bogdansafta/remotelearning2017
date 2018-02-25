@@ -12,12 +12,10 @@ namespace VendingMachine
                 ContainableItem itemToDispense = new ContainableItem(position);
                 Product productToDispense = itemToDispense.Product;
                 collection.RemoveByPosition(position);
-                Update();
                 return productToDispense;
             }
             else
             {
-                Update();
                 return null;
             }
         }

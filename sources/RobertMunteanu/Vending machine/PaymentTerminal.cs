@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace VendingMachine
 {
@@ -25,5 +26,13 @@ namespace VendingMachine
             Credit = 0;
             return change;
         }
+    
+        class PaymentEvent
+        {
+           List<IPaymentListener> Listeners = new List<IPaymentListener>();
+
+           
+        }
+    
     }
 }
