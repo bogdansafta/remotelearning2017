@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace VendingMachine
 {
@@ -25,29 +26,19 @@ namespace VendingMachine
 
         private String ChangeGiven(double change)
         {
-            String written = "";
-            while (change >= 0.50)
-            {
-                written += ", 50";
-                change -= 0.50;
-            }
-            while (change >= 0.10)
-            {
-                written += ", 10";
-                change -= 0.10;
-            }
-            while (change >= 0.5)
-            {
-                written += ", 5";
-                change -= 0.5;
-            }
-            while (change >= 0.1)
-            {
-                written += ", 1";
-                change -= 0.1;
-            }
-            written += " bani";
-            return written;
+           StringBuilder written = new StringBuilder();
+           double[] monede = new double[] { 0.50, 0.10, 0.05, 0.01};
+           for (int index = 0; index < monede.Length; index++)
+           {
+               while (change >= monede[index])
+               {
+                   written.Append($", {monede[index]}");
+                   change -= monede[index];
+               }
+           }
+           written.Append(" bani");
+       
+           return written.ToString();
         }
     }
 }

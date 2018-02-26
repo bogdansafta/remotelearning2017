@@ -2,7 +2,7 @@ using System;
 
 namespace VendingMachine
 {
-    internal class Product
+    public class Product
     {
         private ProductCategory category;
         private string name;

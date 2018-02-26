@@ -1,11 +1,11 @@
 using System;
+using System.Collections.Generic;
 
 namespace VendingMachine
 {
     internal class Dispenser : IPaymentListener
     {
         private ContainableItemsCollection collection;
-
         public Dispenser(ContainableItemsCollection collection)
         {
             this.collection = collection;
@@ -14,6 +14,7 @@ namespace VendingMachine
         {
             if (!collection.DecrementQuantity(ID))
                 throw new MyException("The ID is not recognized");
+            adaugareData(ID);
         }
         public Product GetProductViaID(int ID)
         {
@@ -28,6 +29,12 @@ namespace VendingMachine
         public void Update()
         {
             Console.WriteLine("A product has been disposed");
+        }
+
+        public void adaugareData(int ID)
+        {
+            Data singleton=Data.Instance;
+            singleton.SetData(GetProductViaID(ID),DateTime.Now);
         }
     }
 }
