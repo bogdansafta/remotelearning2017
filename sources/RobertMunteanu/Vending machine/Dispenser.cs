@@ -3,7 +3,12 @@ namespace VendingMachine
 {
     public class Dispenser : IPaymentListener
     {
-        private ContainableItemCollection collection = new ContainableItemCollection();
+        private ContainableItemCollection collection;
+
+        public Dispenser(ContainableItemCollection collection)
+        {
+            this.collection = collection;
+        }
 
         private Product Dispense(int Id)
         {

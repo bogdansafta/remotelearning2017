@@ -1,16 +1,12 @@
 using System;
 namespace VendingMachine
 {
-    class ContainableItemCollection
+    public class ContainableItemCollection
     {
         private const int defaultMaxSize = 100;
         private ContainableItem[] products = new ContainableItem[defaultMaxSize];
         private int sizeIndex = 0;
 
-        public ContainableItemCollection()
-        {
-            
-        }
         public ContainableItemCollection(ContainableItem[] products)
         {
             this.products = products;
