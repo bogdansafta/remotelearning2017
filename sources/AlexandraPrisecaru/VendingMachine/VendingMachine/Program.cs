@@ -11,20 +11,20 @@ namespace VendingMachine
         {
             PaymentTerminal paymentTerminal = new PaymentTerminal();
 
-            Payment paymentType = paymentTerminal.GetPayment();
-            Console.WriteLine($"Payment type selected: {paymentType.ToString()}");
+            Payment payment = paymentTerminal.GetPayment();
+            Console.WriteLine($"Payment type selected: {payment.ToString()}");
 
             Console.WriteLine("\nAvailable products:");
             foreach (ContainableItem containableItem in VendingMachine.Instance.Items)
             {
-                Console.WriteLine($"Id: {containableItem.Position.Id}\t ProductName: {containableItem.Product.Name}\t Price: {containableItem.Product.Price}");
+                Console.WriteLine($"Id: {containableItem.Position.Id}\t ProductName: {containableItem.Product.Name}"
+                + "\t Price: {containableItem.Product.Price}");
             }
 
             int id = GetSelectedId();
 
-            paymentTerminal.Pay(id, paymentType);
+            paymentTerminal.Pay(id, payment);
             Console.ReadKey();
-
         }
 
         private static void ContainableItemCollectionFunctionalities()

@@ -2,8 +2,9 @@ namespace VendingMachine
 {
     public class CoinPayment : Payment
     {
-        public override double[] AcceptedMonetaryUnits { get; } = new double[] { 0.5, 1, 5, 10 };
         private const double coinValue = 0.5;
+        
+        public override double[] AcceptedMonetaryUnits { get; } = new double[] { 0.5, 1, 5, 10 };
 
         public override string GetChange(double price)
         {

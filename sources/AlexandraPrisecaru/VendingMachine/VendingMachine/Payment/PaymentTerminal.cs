@@ -148,8 +148,7 @@ namespace VendingMachine
         {
             private List<IPaymentListener> listeners;
 
-            public
-            PaymentEvent()
+            public PaymentEvent()
             {
                 listeners = new List<IPaymentListener>();
             }
