@@ -3,10 +3,16 @@ namespace VendingMachine
 {
     public abstract class Payment
     {        
-        
-        public Decimal Change(Decimal paid, Decimal price)
+
+        public Decimal Accumulate = 0;
+        public Boolean IsValid(Decimal price)
         {
-            Decimal change = paid - price;
+            return (Accumulate - price >= 0);
+        }
+
+        public Decimal Change(Decimal price)
+        {
+            Decimal change = Accumulate - price;
             return change;
         }
     }

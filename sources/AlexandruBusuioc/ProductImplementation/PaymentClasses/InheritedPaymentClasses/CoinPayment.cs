@@ -22,6 +22,10 @@ namespace ProductImplementation
         {
             return coins.Count*coinValue;
         }
+        public bool Verify(decimal quantityPaid, decimal quantityToPay)
+        {
+            return (quantityPaid>=quantityToPay);
+        }
         public override int GiveChange(int value)
         {
             Console.WriteLine($"Need to return: {value}");
@@ -54,7 +58,7 @@ namespace ProductImplementation
                 Console.WriteLine("You're out of coins!");
                 return 0;
             }
-            Console.WriteLine("Insert a coin by pressing any key");
+            Console.WriteLine($"Insert a coin ({coinValue}) by pressing any key");
             Console.ReadKey();
             coins.Remove(coins.FirstOrDefault());
             return this.coinValue;

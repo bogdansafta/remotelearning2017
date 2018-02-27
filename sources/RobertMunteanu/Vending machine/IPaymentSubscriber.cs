@@ -4,7 +4,7 @@ namespace VendingMachine
 {
     public interface IPaymentSubscriber
     {
-        void Subscribe();
-        void Unsubscribe();
+        void Subscribe(IPaymentListener listener);
+        void Unsubscribe(IPaymentListener listener);
     } 
 }

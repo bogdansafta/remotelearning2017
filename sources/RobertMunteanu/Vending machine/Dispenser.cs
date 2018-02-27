@@ -1,21 +1,32 @@
 using System;
 namespace VendingMachine
 {
-    class Dispenser
+    public class Dispenser : IPaymentListener
     {
-        private ContainableItemCollection collection = new ContainableItemCollection();
+        private ContainableItemCollection collection;
 
-        public Product Dispense(Position position)
+        public Dispenser(ContainableItemCollection collection)
+        {
+            this.collection = collection;
+        }
+
+        private Product Dispense(int Id)
         {
             if (collection.Count > 0)
             {
-                ContainableItem itemToDispense = new ContainableItem(position);
-                Product productToDispense = itemToDispense.Product;
-                collection.RemoveByPosition(position);
-                return productToDispense;
+                ContainableItem itemToDispense = collection.ItemById(Id);
+                collection.RemoveById(Id);
+                return itemToDispense.Product;
             }
             else
+            {
                 return null;
+            }
+        }
+
+        public void Update(int Id)
+        {
+            Dispense(Id);
         }
     }
 }

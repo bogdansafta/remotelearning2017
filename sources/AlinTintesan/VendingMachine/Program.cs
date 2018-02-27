@@ -19,7 +19,7 @@ namespace VendingMachine
             collection.Add(ci2);
             Dispenser dispenser=new Dispenser(collection);
             //dispenser.Dispense(1);
-            Payment payment=new BanknotePayment(1);
+            Payment payment=new BanknotePayment(6);
             PaymentTerminal paymentTerminal=new PaymentTerminal(dispenser);
             paymentTerminal.Pay(1,payment);
 

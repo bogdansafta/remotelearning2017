@@ -1,5 +1,6 @@
 using System;
 namespace VendingMachine
+
 {
     public class Category
     {
