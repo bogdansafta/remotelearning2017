@@ -8,6 +8,5 @@ namespace VendingMachine
         {
             Name = name;
         }
-
     }
 }

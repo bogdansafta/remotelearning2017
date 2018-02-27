@@ -2,13 +2,17 @@ using System.Linq;
 
 namespace VendingMachine
 {
-    public class Dispenser
+    public class Dispenser : IPaymentListener
     {
         public Product Dispense(int id)
         {
             Product product = GetProduct(id);
-            VendingMachine.Instance.Items.FirstOrDefault(item => item.Product.Equals(product))
-                                   .Product.Quantity--;
+            if (product == null || product.Quantity == 0)
+            {
+                throw new ProductNotFoundException();
+            }
+
+            VendingMachine.Instance.Items.Select(item => item.Product).FirstOrDefault(prod => prod.Equals(product)).Quantity--;
 
             return product;
         }
@@ -16,6 +20,11 @@ namespace VendingMachine
         public Product GetProduct(int id)
         {
             return VendingMachine.Instance.Items.GetProductById(id);
+        }
+
+        public void Update(int idProduct)
+        {
+            Dispense(idProduct);
         }
     }
 }

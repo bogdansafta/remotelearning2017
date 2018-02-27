@@ -30,5 +30,19 @@ namespace VendingMachine.Tests
             Assert.AreNotEqual(containableItemsCollection.Count, 1);
             Assert.IsFalse(containableItemsCollection.Contains(containableItem));
         }
+
+        [TestMethod]
+        public void GetProductByIdTest()
+        {
+            ContainableItemCollection containableItemsCollection = new ContainableItemCollection();
+            ContainableItem containableItem = Helpers.ContainableItem;
+            containableItemsCollection.Add(containableItem);
+
+            int id = containableItem.Position.Id;
+            Assert.IsNotNull(containableItemsCollection.GetProductById(id));
+
+            int randomId = 156;
+            Assert.ThrowsException<ProductNotFoundException>(() => containableItemsCollection.GetProductById(randomId));
+        }
     }
 }

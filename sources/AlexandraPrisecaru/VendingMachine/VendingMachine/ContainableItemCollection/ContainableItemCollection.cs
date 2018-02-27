@@ -17,19 +17,15 @@ namespace VendingMachine
             return true;
         }
 
-        public Product GetProductById(int id){
+        public Product GetProductById(int id)
+        {
             ContainableItem item = this.FirstOrDefault(containableItem => containableItem.Position.Id == id);
 
-            if (item == null)
+            if (item?.Product == null || item.Product.Quantity == 0)
             {
-                throw new System.Exception("Invalid id.");
+                throw new ProductNotFoundException();
             }
 
-            if (item.Product == null || item.Product.Quantity < 1)
-            {
-                throw new System.Exception("No product found at this id.");
-            }
-            
             return item.Product;
 
         }

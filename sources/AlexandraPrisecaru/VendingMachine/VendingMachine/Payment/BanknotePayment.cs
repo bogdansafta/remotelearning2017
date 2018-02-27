@@ -1,12 +1,7 @@
 namespace VendingMachine
 {
-    public class BanknotePayment : Payment
+    public class BanknotePayment : CoinPayment
     {
-        public override double AmountPaid { get; set; }
-
-        public override double GetChange(double amountPaid, double price)
-        {
-            return amountPaid - price;
-        }
+        public override double[] AcceptedMonetaryUnits { get; } = new double[] { 1, 5, 10 };
     }
 }

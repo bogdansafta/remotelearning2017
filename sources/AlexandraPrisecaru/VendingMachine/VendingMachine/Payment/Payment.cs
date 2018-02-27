@@ -2,8 +2,10 @@ namespace VendingMachine
 {
     public abstract class Payment
     {
-        public abstract double AmountPaid { get; set; }
-        
-        public abstract double GetChange(double amountPaid, double price);
+        public double AmountPaid { get; set; }
+        public virtual double[] AcceptedMonetaryUnits { get; }
+        public abstract string GetChange(double price);
+
+        public override string ToString() => GetType().Name;
     }
 }

@@ -1,3 +1,4 @@
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace VendingMachine.Tests
@@ -13,18 +14,22 @@ namespace VendingMachine.Tests
             VendingMachine vendingMachine = VendingMachine.Instance;
             ContainableItem containableItem = Helpers.ContainableItem;
             int initialQuantity = containableItem.Product.Quantity;
+            int id = containableItem.Position.Id;
             vendingMachine.Items.Add(containableItem);
+            ContainableItem vendingMachineItem = vendingMachine.Items.FirstOrDefault(item => item.Position.Id == id);
 
-            Assert.ThrowsException<System.Exception>(() => dispenser.Dispense(23));
-            Assert.IsNotNull(dispenser.Dispense(containableItem.Position.Id));
-            Assert.AreNotEqual(initialQuantity, containableItem.Product.Quantity);
+            Assert.ThrowsException<ProductNotFoundException>(() => dispenser.Dispense(23));
+            Assert.IsNotNull(dispenser.Dispense(id));
 
-            containableItem.Product.Quantity=0;
-            Assert.ThrowsException<System.Exception>(()=> dispenser.Dispense(containableItem.Position.Id));
-            
-            containableItem.Product.Quantity++;
-            containableItem.Product=null;
-            Assert.ThrowsException<System.Exception>(()=> dispenser.Dispense(containableItem.Position.Id));
+            dispenser.Dispense(id);
+            Assert.AreNotEqual(initialQuantity, vendingMachine.Items.FirstOrDefault(item => item.Position.Id == id).Product.Quantity);
+
+            vendingMachineItem.Product.Quantity = 0;
+            Assert.ThrowsException<ProductNotFoundException>(() => dispenser.Dispense(id));
+
+            vendingMachineItem.Product.Quantity++;
+            vendingMachineItem.Product = null;
+            Assert.ThrowsException<ProductNotFoundException>(() => dispenser.Dispense(id));
         }
     }
 }

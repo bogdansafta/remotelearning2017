@@ -1,12 +1,14 @@
+using System;
+
 namespace VendingMachine
 {
     public class CreditCardPayment : Payment
     {
-        public override double AmountPaid { get; set; }
+        public override string GetChange(double price) => string.Empty;
 
-        public override double GetChange(double amountPaid, double price)
+        public bool IsValid()
         {
-            return 0;
+            return new Random().Next(2) == 1;
         }
     }
 }

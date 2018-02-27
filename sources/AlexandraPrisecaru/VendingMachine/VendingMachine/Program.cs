@@ -5,55 +5,26 @@ namespace VendingMachine
 {
     public class Program
     {
+        private const string invalidInput = "Invalid input";
 
         static void Main(string[] args)
         {
-            AddHardcodedItems(VendingMachine.Instance.Items);
+            PaymentTerminal paymentTerminal = new PaymentTerminal();
 
-        PaymentType:
-            Console.WriteLine("Please select the payment type: 1-Coins, 2- BankNote, 3-CreditCard; Or cancel: 4");
+            Payment paymentType = paymentTerminal.GetPayment();
+            Console.WriteLine($"Payment type selected: {paymentType.ToString()}");
 
-            Payment payment = new BanknotePayment();
-
-            if(!int.TryParse(Console.ReadLine(), out int paymentType)){
-                Console.WriteLine("Invalid input.");
-                goto PaymentType;
-            }
-            switch (paymentType)
-            {
-                case 1:
-                    payment = new CoinPayment();
-                    break;
-                case 2:
-                    payment = new BanknotePayment();
-                    break;
-                case 3:
-                    payment = new CreditCardPayment();
-                    break;
-                case 4:
-                    Environment.Exit(0);
-                    break;
-                default:
-                    Console.WriteLine("invalidInput");
-                    goto PaymentType;
-            }
-
-            Console.WriteLine("Available products:");
+            Console.WriteLine("\nAvailable products:");
             foreach (ContainableItem containableItem in VendingMachine.Instance.Items)
             {
                 Console.WriteLine($"Id: {containableItem.Position.Id}\t ProductName: {containableItem.Product.Name}\t Price: {containableItem.Product.Price}");
             }
 
-        SelectId:
-            Console.WriteLine("Select an id.");
-            if (!int.TryParse(Console.ReadLine(), out int id))
-            {
-                Console.WriteLine("invalidInput");
-                goto SelectId;
-            }
+            int id = GetSelectedId();
 
-            PaymentTerminal paymentTerminal = new PaymentTerminal();
-            paymentTerminal.Pay(id, new BanknotePayment());
+            paymentTerminal.Pay(id, paymentType);
+            Console.ReadKey();
+
         }
 
         private static void ContainableItemCollectionFunctionalities()
@@ -73,18 +44,10 @@ namespace VendingMachine
                 Product = coffeeProduct,
                 Position = new Position(row: 2, column: 0, id: 13, size: 3)
             });
-            WriteContainableItems(vendingMachine.Items);
-
-            Console.WriteLine("Add multiple products:");
-            AddHardcodedItems(vendingMachine.Items);
 
             WriteContainableItems(vendingMachine.Items);
 
-
-            Dispenser dispenser = new Dispenser();
-            dispenser.Dispense(3);
-
-            Console.WriteLine("Remove at position: 0,1");
+            Console.WriteLine("Remove at position: (0,1)");
             if (!vendingMachine.Items.RemoveBy(new Position(row: 0, column: 1, id: 2)))
             {
                 Console.WriteLine("No product found at this position.");
@@ -153,40 +116,22 @@ namespace VendingMachine
             Console.WriteLine();
         }
 
-        private static void AddHardcodedItems(ContainableItemCollection items)
+        private static int GetSelectedId()
         {
-            items.AddRange(
-                new ContainableItem
-                {
-                    Product = new Product
-                    {
-                        Category = new Category("Beverages"),
-                        Name = "Cola",
-                        Price = 12.5
-                    },
-                    Position = new Position(row: 0, column: 1, id: 2)
-                },
-                new ContainableItem
-                {
-                    Product = new Product
-                    {
-                        Category = new Category("Snacks"),
-                        Name = "Chips",
-                        Price = 10.5,
-                    },
-                    Position = new Position(row: 0, column: 2, id: 2, size: 2)
-                },
-                new ContainableItem
-                {
-                    Product = new Product
-                    {
-                        Category = new Category("Snacks"),
-                        Name = "Chips",
-                        Price = 10.5
-                    },
-                    Position = new Position(row: 0, column: 4, id: 3, size: 1)
-                }
-            );
+            Console.WriteLine("\nSelect an id:");
+            if (!int.TryParse(Console.ReadLine(), out int id))
+            {
+                Console.WriteLine(invalidInput);
+                return GetSelectedId();
+            }
+
+            if (!VendingMachine.Instance.Items.Any(item => item.Position.Id == id))
+            {
+                Console.WriteLine(invalidInput);
+                return GetSelectedId();
+            }
+
+            return id;
         }
     }
 }
