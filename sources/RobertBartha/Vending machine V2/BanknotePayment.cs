@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace Vending_machine_V2
 {
@@ -24,6 +25,32 @@ namespace Vending_machine_V2
             }
             Console.WriteLine("Amount of change: {0}", paid - price);
             return true;
+        }
+        private String ChangeGiven(double change)
+        {
+            StringBuilder written = new StringBuilder();
+            double[] bancnote = new double[] { 10, 5, 1 };
+            double[] monede = new double[] { 0.50F, 0.10F, 0.05F, 0.01F };
+            for (int index = 0; index < bancnote.Length; index++)
+            {
+                while (change >= bancnote[index])
+                {
+                    written.Append($", {bancnote[index]}");
+                    change -= bancnote[index];
+                }
+            }
+            written.Append(" lei ");
+            for (int index = 0; index < monede.Length; index++)
+            {
+                while (change >= monede[index])
+                {
+                    written.Append($", {monede[index]}");
+                    change -= monede[index];
+                }
+            }
+            written.Append(" bani");
+
+            return written.ToString();
         }
         public override bool IsValid(Product product)
         {

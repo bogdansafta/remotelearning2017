@@ -2,14 +2,17 @@ using System;
 
 namespace Vending_machine_V2
 {
-    public class PaymentTerminal : IPaymentNotify
+    public class PaymentTerminal
     {
-        public Dispenser dispenser;
+        private Dispenser dispenser;
         public Payment payment;
+        private PaymentEvent evPayment;
         public PaymentTerminal(Dispenser dispenser, Payment payment)
         {
             this.dispenser = dispenser;
             this.payment = payment;
+            evPayment = new PaymentEvent();
+            evPayment.Subscribe(dispenser);
         }
         public void Pay(int id)
         {
@@ -35,11 +38,8 @@ namespace Vending_machine_V2
             if (payment.Change(product.price))
             {
                 dispenser.DispenseProduct(id);
+                evPayment.Notify(id);
             }
-        }
-        public void Update(object product)
-        {
-
         }
     }
 }

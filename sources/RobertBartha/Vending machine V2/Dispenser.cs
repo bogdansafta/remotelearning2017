@@ -2,12 +2,16 @@ using System;
 using System.Linq;
 namespace Vending_machine_V2
 {
-    public class Dispenser:IPaymentSubscribe
+    public class Dispenser : IPaymentListener
     {
         private static List<ContainableItem> productList = ContainableItemCollection.GetList();
+        public void adaugareData(int identify)
+        {
+            Data singleton = Data.Instance;
+            singleton.SetData(DispenseProduct(identify), DateTime.Now);
+        }
         public Product DispenseProduct(int identify)
         {
-            Notify();
             ContainableItem item = productList.FirstOrDefault(itemToDispense => itemToDispense.position.id == identify);
             if (item == null)
             {
@@ -19,6 +23,11 @@ namespace Vending_machine_V2
             }
             item.product.quantity--;
             return item.product;
+            adaugareData(identify);
+        }
+        public void Update()
+        {
+
         }
     }
 }
