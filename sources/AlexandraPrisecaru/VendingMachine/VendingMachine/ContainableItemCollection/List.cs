@@ -158,7 +158,7 @@ namespace VendingMachine
 
             if (length >= size)
             {
-                size = 4 * (Math.Abs(capacity / 4) + 1);
+                size = 4 * (Math.Abs(size / 4) + 1);
 
                 T[] localItems = internalItems;
                 internalItems = new T[size];

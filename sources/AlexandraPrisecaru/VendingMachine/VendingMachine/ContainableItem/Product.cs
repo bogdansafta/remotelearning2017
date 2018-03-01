@@ -20,6 +20,11 @@ namespace VendingMachine
 
             foreach (PropertyInfo property in this.GetType().GetProperties())
             {
+                if (property.Name.Equals(nameof(Category)))
+                {
+                    continue;
+                }
+                
                 if (!property.GetValue(this).Equals(property.GetValue(other)))
                 {
                     return false;

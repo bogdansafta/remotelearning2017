@@ -13,7 +13,8 @@ namespace VendingMachine
             }
 
             VendingMachine.Instance.Items.Select(item => item.Product).FirstOrDefault(prod => prod.Equals(product)).Quantity--;
-
+            DataAcquisition.Instance.AddToSales(product);
+            
             return product;
         }
 

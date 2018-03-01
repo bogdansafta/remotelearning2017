@@ -11,6 +11,7 @@ namespace VendingMachine
         {
             PaymentTerminal paymentTerminal = new PaymentTerminal();
 
+        BuyProduct:
             Payment payment = paymentTerminal.GetPayment();
             Console.WriteLine($"Payment type selected: {payment.ToString()}");
 
@@ -18,12 +19,19 @@ namespace VendingMachine
             foreach (ContainableItem containableItem in VendingMachine.Instance.Items)
             {
                 Console.WriteLine($"Id: {containableItem.Position.Id}\t ProductName: {containableItem.Product.Name}"
-                + "\t Price: {containableItem.Product.Price}");
+                + $"\t Price: {containableItem.Product.Price}");
             }
 
             int id = GetSelectedId();
 
             paymentTerminal.Pay(id, payment);
+
+            Console.WriteLine("Try again? Y/N");
+            string answer = Console.ReadLine();
+            if(answer.ToUpper().Equals("Y")){
+                goto BuyProduct;
+            }
+            
             Console.ReadKey();
         }
 

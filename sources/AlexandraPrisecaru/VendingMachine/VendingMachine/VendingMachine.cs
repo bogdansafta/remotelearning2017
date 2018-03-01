@@ -1,10 +1,14 @@
+using System.IO;
+using System.Linq;
+
 namespace VendingMachine
 {
     public class VendingMachine
     {
+        private static VendingMachine instance;
         private ContainableItemCollection items;
 
-        private static VendingMachine instance;
+
         public static VendingMachine Instance
         {
             get
@@ -17,47 +21,51 @@ namespace VendingMachine
             }
         }
 
-        public ContainableItemCollection Items { get => items ?? (items = GetHardcodedItems()); }
+        public ContainableItemCollection Items
+        {
+            get
+            {
+                if (items == null)
+                {
+                    items = GetInitializedCollection();
+                }
+                return items;
+            }
+        }
 
         private VendingMachine() { }
 
-        private ContainableItemCollection GetHardcodedItems()
+        private ContainableItemCollection GetInitializedCollection()
         {
-            return new ContainableItemCollection(){
-                new ContainableItem
+            string[] containableItems = File.ReadAllLines("Data/Products.csv").Skip(1).ToArray();
+            ContainableItemCollection collection = new ContainableItemCollection();
+            foreach (var item in containableItems)
+            {
+                string[] values = item.Split(",");
+
+                int.TryParse(values[0], out int row);
+                int.TryParse(values[1], out int column);
+                int.TryParse(values[2], out int id);
+                int.TryParse(values[3], out int size);
+                string productName = values[4];
+                double.TryParse(values[5], out double price);
+                int.TryParse(values[6], out int quantity);
+
+                collection.Add(new ContainableItem()
                 {
-                    Product = new Product
+                    Position = new Position(row, column, id, size),
+                    Product = new Product()
                     {
-                        Category = new Category("Beverages"),
-                        Name = "Cola",
-                        Price = 12.5,
-                        Quantity=3
-                    },
-                    Position = new Position(row: 0, column: 1, id: 1)
-                },
-                new ContainableItem
-                {
-                    Product = new Product
-                    {
-                        Category = new Category("Snacks"),
-                        Name = "Chips",
-                        Price = 10.5,
-                        Quantity=4
-                    },
-                    Position = new Position(row: 0, column: 2, id: 2, size: 2)
-                },
-                new ContainableItem
-                {
-                    Product = new Product
-                    {
-                        Category = new Category("Snacks"),
-                        Name = "Popcorn",
-                        Price = 8,
-                        Quantity=3
-                    },
-                    Position = new Position(row: 0, column: 4, id: 4, size: 1)
-                }
-            };
+                        Name = productName,
+                        Price = price,
+                        Quantity = quantity
+                    }
+                });
+
+                DataAcquisition.Instance.AddToStocks(productName, quantity);
+            }
+
+            return collection;
         }
     }
 }
