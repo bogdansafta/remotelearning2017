@@ -30,7 +30,7 @@ namespace VendingMachine
         public void CollectProductData(int productId)
         {
             Singleton singleton = Singleton.Instance;
-            singleton.collectData(DispenseProduct(productId), DateTime.Now);
+            singleton.CollectData(DispenseProduct(productId), DateTime.Now);
         }
 
         public void Update()

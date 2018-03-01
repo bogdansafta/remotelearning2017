@@ -30,7 +30,7 @@ namespace VendingMachine
             }
         }
 
-        public void collectData(Product product, DateTime dateTime)
+        public void CollectData(Product product, DateTime dateTime)
         {
             salesList.Add(new Sales(product, dateTime));
         }
