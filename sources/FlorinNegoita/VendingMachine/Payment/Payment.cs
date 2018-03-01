@@ -6,9 +6,9 @@ namespace VendingMachine
     {
         public abstract double Change(double price);
         
-      //  public abstract Decimal Accumulate(decimal amount);
+       public abstract double Accumulate(double price);
 
-       public double Accumulate = 100;
+      // public double Accumulate = 100;
 
         public Boolean IsValid;
     }

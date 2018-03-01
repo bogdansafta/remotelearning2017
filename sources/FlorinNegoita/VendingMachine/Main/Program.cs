@@ -80,25 +80,52 @@ namespace VendingMachine
             Dispenser dispenser = new Dispenser(containableItemsCollection);
 
             PaymentTerminal paymentTerminal = new PaymentTerminal(dispenser);
-            Payment payment = new BanknotePayment();
 
             containableItemsCollection.AddProduct(containableItem1);
             containableItemsCollection.AddProduct(containableItem2);
             containableItemsCollection.AddProduct(containableItem3);
-
-            //  containableItemsCollection.RemoveAt(2);
 
             for (int i = 0; i < containableItemsCollection.Count(); i++)
             {
                 Console.WriteLine(containableItemsCollection.GetItem(i));
             }
 
-            Console.WriteLine("After dispense:");
+            Console.WriteLine("Alegeti id-ul produsului");
+            int productId = Convert.ToInt32(Console.ReadLine());
+            
+            Console.WriteLine("1. Plata cu bancnote");
+            Console.WriteLine("2. Plata cu monede");
+            Console.WriteLine("3. Plata cu cardul");
 
-            paymentTerminal.Pay(0, payment);
+            int counter = Convert.ToInt32(Console.ReadLine());
 
-            //Product dispenseProduct = dispenser.Dispense(0);
-           // Console.WriteLine(dispenseProduct);
+            switch (counter)
+            {
+                case 1:
+                    Payment paymentBanknotes = new BanknotePayment();
+                    paymentTerminal.Pay(productId, paymentBanknotes);
+
+                    break;
+
+                case 2:
+                    Payment paymentCoins = new CoinPayment();
+                    paymentTerminal.Pay(productId, paymentCoins);
+
+                    break;
+
+                case 3:
+                    Payment paymentCard = new CreditCardPayment();
+                    paymentTerminal.Pay(productId, paymentCard);
+
+                    break;
+
+                default:
+                    Console.WriteLine("gresit!");
+                    break;
+            }
+
+            Singleton singleton = Singleton.Instance;
+            Console.WriteLine(singleton.ToString());
         }
     }
 }

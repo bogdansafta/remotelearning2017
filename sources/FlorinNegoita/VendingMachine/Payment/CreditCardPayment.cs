@@ -4,9 +4,15 @@ namespace VendingMachine
 {
     public class CreditCardPayment : Payment
     {
+        public override double Accumulate(double price)
+        {
+          throw new NotImplementedException();
+        }
+
         public override double Change(double price)
         {
-            return Accumulate - price;
+            IsValid = true;
+            return price;
         }
     }
 }

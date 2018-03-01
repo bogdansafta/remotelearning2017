@@ -6,24 +6,36 @@ namespace VendingMachine
     {
         private ContainableItemsCollection containableItemsCollection;
 
-        public Dispenser (ContainableItemsCollection collection)
+        public Dispenser(ContainableItemsCollection collection)
         {
             containableItemsCollection = collection;
         }
-        public Product Dispense(int index)
+        public Product DispenseProduct(int productId)
         {
-            ContainableItem containableItem = containableItemsCollection.GetItem(index);
+            ContainableItem containableItem = containableItemsCollection.GetItem(productId);
 
             if (containableItem == null)
                 throw new ArgumentNullException(nameof(containableItem));
 
-            containableItem.Product.Quantity --;
+            containableItem.Product.Quantity--;
+            
             return containableItem.Product;
+        }
+
+        public void Dispense(int productId)
+        {
+            CollectProductData(productId);
+        }
+
+        public void CollectProductData(int productId)
+        {
+            Singleton singleton = Singleton.Instance;
+            singleton.collectData(DispenseProduct(productId), DateTime.Now);
         }
 
         public void Update()
         {
-            
+            Console.WriteLine("Product dispense.");
         }
     }
 }

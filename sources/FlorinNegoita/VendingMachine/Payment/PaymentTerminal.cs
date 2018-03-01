@@ -16,13 +16,13 @@ namespace VendingMachine
 
         public void Pay(int productId, Payment payment)
         {
-            Product product = dispenser.Dispense(productId);
+            Product product = dispenser.DispenseProduct(productId);
 
             if (product != null)
             {
                 double change = payment.Change(product.Price);
 
-                if (change >= 0)
+                if (payment.IsValid)
                 {
                     dispenser.Dispense(productId);
                     Console.WriteLine($"Product -> {product}");
@@ -30,7 +30,7 @@ namespace VendingMachine
                     eventPayment.Notify(productId);
                 }
                 else
-                    Console.WriteLine("Don't!");
+                    Console.WriteLine("Error! Please try again.");
             }
             else
                 Console.WriteLine("Product doesn't exist!");
