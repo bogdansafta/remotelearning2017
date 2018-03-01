@@ -24,13 +24,11 @@ namespace ProductImplementation
         private void Dispense(int id)
         {
             ContainableItem toDispense = VerifyCollection(id);
-            System.Console.WriteLine($"Dispensing:{toDispense.product.Name}");
             toDispense.product.Quantity--;
         }
         
-        public void Notify(int id)
+        public void Update(int id)
         {
-            System.Console.WriteLine("Dispenser notified!");
             Dispense(id);
         }
         public Product GetProduct(int id)

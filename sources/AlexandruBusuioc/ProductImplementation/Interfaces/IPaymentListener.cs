@@ -3,6 +3,6 @@ namespace ProductImplementation
 {
     public interface IPaymentListener
     {
-        void Notify(int productId);
+        void Update(int productId);
     }
 }

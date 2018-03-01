@@ -10,11 +10,8 @@ namespace ProductImplementation
         }
         public bool Verify()
         {
-            System.Console.WriteLine("Confirm your pin for payment:");
-            int query = Int32.Parse(Console.ReadLine());
-            if (query == pin)
-                return true;
-            return false;
+            int confirmPin = Int32.Parse(Console.ReadLine());
+            return (confirmPin == pin);
         }
     }
 }

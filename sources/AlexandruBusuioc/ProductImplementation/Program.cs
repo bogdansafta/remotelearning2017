@@ -24,8 +24,7 @@ namespace ProductImplementation
             col.Add(third);
 
             Dispenser dispenser = new Dispenser(col);
-            PaymentTerminal terminal = new PaymentTerminal();
-            terminal.Subscribe(dispenser);
+            PaymentTerminal terminal = new PaymentTerminal(dispenser);
 
             Console.WriteLine();
 
@@ -53,23 +52,43 @@ namespace ProductImplementation
                     int pin = Int32.Parse(Console.ReadLine());
 
                     CreditCard card = new CreditCard(pin);
-                    Payment payment = new CreditCardPayment(card);
+                    Payment payment = new CreditCardPayment(amountToPay, card);
 
-                    terminal.Pay(choice, payment);
-                
+                    System.Console.WriteLine("Confirm your credit card pin:");
+                    (decimal, bool) result = terminal.Pay(choice, payment);
+                    decimal change = result.Item1;
+                    if (result.Item2)
+                    {
+                        System.Console.WriteLine("Payment succeeded!");
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("Payment failed!");
+                    }
+                    System.Console.WriteLine($"Your change is :{change}");
                     break;
+
                 case 2:
                     System.Console.WriteLine("How many coins do you have in your wallet:");
                     int nrOfCoins = Int32.Parse(Console.ReadLine());
                     System.Console.WriteLine("How much does one coin value:");
                     int coinValue = Int32.Parse(Console.ReadLine());
-        
-                    payment = new CoinPayment(nrOfCoins, coinValue);
-                    terminal.Pay(choice, payment, amountToPay);
-
+                    payment = new CoinPayment(amountToPay, nrOfCoins, coinValue);
+                    result = terminal.Pay(choice, payment);
+                    change = result.Item1;
+                    if (result.Item2)
+                    {
+                        System.Console.WriteLine("Payment succeeded!");
+                    }
+                    else
+                    {
+                        System.Console.WriteLine("Payment failed!");
+                    }
+                    System.Console.WriteLine($"Your change is :{change}");
                     break;
+                    
                 default:
-                    System.Console.WriteLine("Please press 1 or 2... :(");
+                    System.Console.WriteLine("Please press 1 or 2");
                     break;
 
             }
