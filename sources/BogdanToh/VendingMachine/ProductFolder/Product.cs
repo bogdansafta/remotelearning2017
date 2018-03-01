@@ -21,7 +21,7 @@ namespace VendingMachine
         public double Price { get; set; } = 5;
 
         public int Quantity { get; set; } = 0;
-
+        
         public int NrOfCells { get; set; } = 0;
 
         public override string ToString()

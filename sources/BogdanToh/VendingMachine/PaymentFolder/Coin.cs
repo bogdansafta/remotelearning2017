@@ -9,11 +9,11 @@ namespace VendingMachine {
             Console.WriteLine ("Insert coins:");
             while (accumulate < price) {
                 if (double.TryParse (Console.ReadLine (), out insertcoins)) {
-                    if (insertcoins == 1 || insertcoins == 5) {
-                        accumulate = accumulate + insertcoins;
+                    if (insertcoins == 10 || insertcoins == 50) {
+                        accumulate = accumulate + insertcoins/10;
 
                         if (accumulate < price) {
-                            Console.WriteLine ("The inserted value is not enough,you still need " + (price - accumulate));
+                            Console.WriteLine ("The inserted value is not enough,you still need " + (price - accumulate)*10);
                         }
                     } else Console.WriteLine ("You have to use only 10 or 50 coins");
 
@@ -23,7 +23,7 @@ namespace VendingMachine {
                     }
                 } else Console.WriteLine ("Invalid value");
             }
-            return accumulate - price;
+            return (accumulate - price)*10;
         }
     }
 }

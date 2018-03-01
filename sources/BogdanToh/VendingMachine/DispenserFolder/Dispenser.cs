@@ -18,22 +18,31 @@ namespace VendingMachine
             {
                 throw new System.Exception("The product is not in the stock for the moment");
             }
-
+           
+           // DataAcquizition.GetInstance(item.Product,DateTime.Now).showData();
              return item.Product;
         }
+
+       
         private void Dispense(int id)
         {  
             
             ContainableItem item=listofProducts.FirstOrDefault(itemToDispense =>itemToDispense.Position.Id ==id);
             item.Product.Quantity--;
+            DataAcquizition.GetInstance().LoadData(item.Product,DateTime.Now);
             Console.WriteLine($"Quantity left for {item.Product.Name} is {item.Product.Quantity}" );
+            
             
         }
 
         public void update(int id)
         {
+           
             Dispense(id);
-
+            DataAcquizition.GetInstance().ShowData();
+          
         }
+
+
     }
 }
