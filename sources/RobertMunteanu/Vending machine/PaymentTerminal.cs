@@ -3,57 +3,60 @@ using System.Collections.Generic;
 
 namespace VendingMachine
 {
-    class PaymentTerminal : IPaymentSubscriber
+    public class PaymentTerminal
     {
-        private List<IPaymentListener> paymentListeners = new List<IPaymentListener>();
-        public Coin Coin{ get; set; }
-        public Banknote Banknote{ get; set; }
-        public CreditCard CrediCard{ get; set; }
+        public PaymentTerminal() { }
+        public PaymentTerminal(Dispenser dispenser)
+        {
+            paymentEvent.Subscribe(dispenser);
+        }
+
+        private PaymentEvent paymentEvent = new PaymentEvent();
         public Decimal Credit { get; private set; }
 
-        public void CollectTheMoney(Coin Coin, Banknote Banknote, CreditCard CreditCard)
+        public Coin GiveChange(Decimal Price)
         {
-            this.Credit = Coin.Value + Banknote.Value;
-            if (Credit == 0)
-            {
-                this.Credit = CreditCard.Value;
-            }
-        }
-
-        public Coin GiveChange(Decimal price)
-        {
-            Coin change = new Coin();
-            change.Value = change.Change(price);
+            Coin coinChange = new Coin();
+            coinChange.Value = coinChange.ChangeForPrice(Price);
             Credit = 0;
-            return change;
+            return coinChange;
         }
 
-        public void Subscribe(IPaymentListener listener)
+        public void CollectCash(Coin coin, Banknote banknote, Decimal price)
         {
-            paymentListeners.Add(listener);
-        }
-
-        public void Unsubscribe(IPaymentListener listener)
-        {
-            paymentListeners.Remove(listener);
-        }
-
-        private class PaymentEvent : IPaymentNotifier
-        {
-            private IPaymentListener[] listeners;
-            public PaymentEvent(IPaymentListener[] thoseListeners)
+            this.Credit = coin.Value + banknote.Value;
+            if(Credit<price)
             {
-                listeners = thoseListeners;
-            }
-
-            public void Notify(int Id)
-            {
-                for(int index = 0; index < listeners.Length; index++)
-                {
-                    listeners[index].Update(Id);
-                }
+                GiveChange(0);
+                throw (new Exception("Not enough money"));
             }
         }
-    
+
+        public void CollectCreditCard(CreditCard creditCard, int pin, Decimal price)
+        {
+            if (creditCard.Pin.Equals(pin))
+            {
+                this.Credit = price;
+            }
+            else
+            {
+                throw (new Exception("Wrong Pin"));
+            }
+        }
+
+        public void Pay(Boolean cardMode,int Id, Decimal price, Coin coin = null, Banknote banknote = null, CreditCard creditCard = null, int pin = 0)
+        {
+            //CardMode is "false" for cash payment and "true" for card payment
+            if (cardMode)
+            {
+                CollectCreditCard(creditCard, pin, price);
+            }
+            else
+            {
+                CollectCash(coin, banknote, price);   
+            }
+            paymentEvent.Notify(Id);
+        }
+
     }
 }

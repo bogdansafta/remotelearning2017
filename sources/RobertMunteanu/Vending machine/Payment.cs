@@ -2,17 +2,17 @@ using System;
 namespace VendingMachine
 {
     public abstract class Payment
-    {        
+    {
 
-        public Decimal Accumulate = 0;
-        public Boolean IsValid(Decimal price)
+        public static Decimal Value {get; set;}
+        public static Boolean IsValidForPrice(Decimal Price)
         {
-            return (Accumulate - price >= 0);
+            return (Value - Price >= 0);
         }
 
-        public Decimal Change(Decimal price)
+        public Decimal ChangeForPrice(Decimal Price)
         {
-            Decimal change = Accumulate - price;
+            Decimal change = Value - Price;
             return change;
         }
     }

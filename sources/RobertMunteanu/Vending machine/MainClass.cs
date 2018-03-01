@@ -39,6 +39,7 @@ namespace VendingMachine
         }
         static void Main(string[] args)
         {
+            /*
             DeclarationsAndInitializations();
             DisplayMenu(itemArray);
             int ProductId = Console.Read();
@@ -47,6 +48,12 @@ namespace VendingMachine
                 MenuFlow(itemArray, ProductId);
                 ProductId = Console.Read();
             }
+
+
+            */
+
+
+            PaymentTerminal testTerminal = new PaymentTerminal();
 
         }
     }
