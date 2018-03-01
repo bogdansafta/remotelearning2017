@@ -22,6 +22,7 @@ namespace VendingMachine
             Payment payment=new BanknotePayment(6);
             PaymentTerminal paymentTerminal=new PaymentTerminal(dispenser);
             paymentTerminal.Pay(1,payment);
+            dispenser.PrintReport();
 
 
         }
