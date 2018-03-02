@@ -8,6 +8,7 @@ namespace VendingMachine
     {
         private PaymentEvent paymentEvent;
         private Dispenser dispenser;
+        private DataAcquisition dataAcquisition;
         private Payment payment;
         private const string invalidInput = "Invalid input";
 
@@ -15,7 +16,9 @@ namespace VendingMachine
         {
             paymentEvent = new PaymentEvent();
             dispenser = new Dispenser();
+            dataAcquisition = DataAcquisition.Instance;
             paymentEvent.Subscribe(dispenser);
+            paymentEvent.Subscribe(dataAcquisition);
         }
 
         public void Pay(int id, Payment payment)
