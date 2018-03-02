@@ -15,6 +15,7 @@ namespace ProductImplementation
         public PaymentTerminal(Dispenser dispenser)
         {
             paymentEvent.Subscribe(dispenser);
+            paymentEvent.Subscribe(DataAcquisition.Instance);
         }
 
         public (decimal,bool) Pay(int id, Payment payment)

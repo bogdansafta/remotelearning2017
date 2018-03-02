@@ -7,6 +7,8 @@ namespace ProductImplementation
         public Dispenser(ContainableItemsCollection collection)
         {
             this.collection = collection;
+            DataAcquisition.Instance.SetCollection(collection);
+            
         }
         private ContainableItem VerifyCollection(int id)
         {

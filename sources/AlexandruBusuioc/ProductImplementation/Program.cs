@@ -21,7 +21,7 @@ namespace ProductImplementation
 
             col.Add(first);
             col.Add(second);
-            col.Add(third);
+            col.Add(third);       
 
             Dispenser dispenser = new Dispenser(col);
             PaymentTerminal terminal = new PaymentTerminal(dispenser);
@@ -86,12 +86,13 @@ namespace ProductImplementation
                     }
                     System.Console.WriteLine($"Your change is :{change}");
                     break;
-                    
+
                 default:
                     System.Console.WriteLine("Please press 1 or 2");
                     break;
 
             }
+            DataAcquisition.Instance.ExportToCSV();
             Console.ReadKey();
         }
     }
