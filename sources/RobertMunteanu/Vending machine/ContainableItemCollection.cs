@@ -72,13 +72,15 @@ namespace VendingMachine
         public ContainableItem ItemById(int id)
         {
             int index = -1;
-            for (int i = 0; i <= sizeIndex; i++)
+            for (int i = 0; i < sizeIndex; i++)
             {
                 if (products[i].Position.Id == id)
                 {
                     index = i;
                 }
             }
+            if(id == 0)
+                return ( new ContainableItem(new Position(0,0,0,0)));
             return products[index];
         }
 
