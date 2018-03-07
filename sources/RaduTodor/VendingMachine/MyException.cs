@@ -4,6 +4,8 @@ namespace VendingMachine
 {
     internal class MyException : Exception
     {
+        public String Problem;
+
         public MyException()
         {
             Console.WriteLine("A problem has occured");
@@ -11,7 +13,7 @@ namespace VendingMachine
 
         public MyException(string message) : base(message)
         {
-            Console.WriteLine(message);
+            Problem=message;
         }
     }
 }

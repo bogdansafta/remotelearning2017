@@ -4,6 +4,6 @@ namespace VendingMachine
 {
     interface IPaymentNotifier
     {
-        void notify(int productID);
+        void Notify(int productID);
     }
 }

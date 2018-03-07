@@ -4,30 +4,34 @@ namespace VendingMachine
 {
     internal class Node
     {
-        public ContainableItem containableItem;
+        public ContainableItem ContainableItem;
         public Node To;
 
         public Node()
         {
-            containableItem = new ContainableItem();
+            ContainableItem = new ContainableItem();
             To = null;
         }
-        public Node(ContainableItem NewItem,Node NextNode)
+
+        public Node(ContainableItem newItem, Node nextNode)
         {
-            containableItem=NewItem;
-            To = NextNode;
+            ContainableItem=newItem;
+            To = nextNode;
         }
-        public Boolean HasSameID(int ID)
+
+        public Boolean HasSameID(int iD)
         {
-            return containableItem.position.HasSameID(ID);
+            return ContainableItem.Position.HasSameID(iD);
         }
+
         public int GetQuantity()
         {
-            return containableItem.product.GetSize();
+            return ContainableItem.Product.GetSize();
         }
-        public void SetQuantity(int Quantity)
+
+        public void SetQuantity(int quantity)
         {
-            containableItem.product.SetSize(Quantity);
+            ContainableItem.Product.SetSize(quantity);
         }
     }
 }

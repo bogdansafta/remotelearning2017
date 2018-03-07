@@ -6,35 +6,40 @@ namespace VendingMachine
     internal class Dispenser : IPaymentListener
     {
         private ContainableItemsCollection collection;
+
+        internal ContainableItemsCollection Collection { get => collection; set => collection = value; }
+
         public Dispenser(ContainableItemsCollection collection)
         {
             this.collection = collection;
         }
-        public void Dispense(int ID)
+
+        public void Dispense(int iD)
         {
-            if (!collection.DecrementQuantity(ID))
+            if (!collection.DecrementQuantity(iD))
+            {
                 throw new MyException("The ID is not recognized");
-            adaugareData(ID);
+            }
         }
-        public Product GetProductViaID(int ID)
+
+        public Product GetProductViaID(int iD)
         {
-            Product product = collection.GetProductViaID(ID);
+            Product product = collection.GetProductViaID(iD);
             if (product != null)
+            {
                 return product;
+            }
             else
+            {
                 throw new MyException("No product on this ID");
+            }
 
         }
 
-        public void Update()
+        public void Update(int iD)
         {
-            Console.WriteLine("A product has been disposed");
-        }
-
-        public void adaugareData(int ID)
-        {
-            Data singleton=Data.Instance;
-            singleton.SetData(GetProductViaID(ID),DateTime.Now);
+            Dispense(iD);
+            Console.WriteLine($"The product with the ID={iD} has been disposed");
         }
     }
 }

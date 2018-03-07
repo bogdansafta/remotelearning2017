@@ -2,36 +2,48 @@ namespace VendingMachine
 {
     class ContainableItem
     {
-        public Product product;
-        public Position position;
+        public Product Product;
+        public Position Position;
 
         public ContainableItem()
         {
-            product = new Product();
-            position = new Position();
+            Product = new Product();
+            Position = new Position();
         }
+
         public ContainableItem(Product prod, Position pos)
         {
-            product = prod;
-            position = pos;
+            Product = prod;
+            Position = pos;
         }
+
         public override string ToString()
         {
-            return (product.ToString() + " " + position.ToString());
+            return (Product.ToString() + " " + Position.ToString());
         }
+
         public bool Equals(ContainableItem other)
         {
-            if (product.Equals(other.product))
+            if (Product.Equals(other.Product))
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         }
+
         public bool EqualsPosition(ContainableItem other)
         {
-            if (position.Equals(other.position))
+            if (Position.Equals(other.Position))
+            {
                 return true;
+            }
             else
+            {
                 return false;
+            }
         }
     }
 }

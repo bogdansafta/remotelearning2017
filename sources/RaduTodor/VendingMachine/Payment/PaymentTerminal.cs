@@ -8,12 +8,16 @@ namespace VendingMachine
         private Payment payment;
 
         private PaymentEvent paymentEvent;
+        private Data data;
 
         public PaymentTerminal(Dispenser dispenser)
         {
             this.dispenser = dispenser;
             paymentEvent = new PaymentEvent();
             paymentEvent.Subscribe(dispenser);
+            data = Data.Instance;
+            paymentEvent.Subscribe(data);
+            data.Collection = dispenser.Collection;
         }
 
         public void Pay(int productId, int option)
@@ -32,13 +36,14 @@ namespace VendingMachine
                 payment = new CardPayment();
             }
             else
-                throw new MyException("1,2 or 3...so simple and yet so complicated");
-            if (payment.Change(product.price))
             {
-                dispenser.Dispense(productId);
+                throw new MyException("1,2 or 3...so simple and yet so complicated");
+            }
+            if (payment.Change(product.Price))
+            {
                 if (payment.IsValid)
                 {
-                    paymentEvent.notify(productId);
+                    paymentEvent.Notify(productId);
                 }
             }
         }

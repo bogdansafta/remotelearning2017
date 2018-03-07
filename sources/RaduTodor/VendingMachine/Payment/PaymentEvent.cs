@@ -11,9 +11,9 @@ namespace VendingMachine
             listeners = new List<IPaymentListener>();
         }
 
-        public void notify(int productID)
+        public void Notify(int productID)
         {
-            listeners.ForEach(x => x.Update());
+            listeners.ForEach(x => x.Update(productID));
         }
 
         public void Subscribe(IPaymentListener subscriber)

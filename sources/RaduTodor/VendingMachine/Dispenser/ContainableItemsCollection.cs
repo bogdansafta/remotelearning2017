@@ -5,17 +5,19 @@ namespace VendingMachine
     internal class ContainableItemsCollection
     {
         int Size { get; set; }
-        Node First;
-        public Node GetFirst() => First;
+
+        Node first;
+
+        public Node GetFirst() => first;
 
         public ContainableItemsCollection()
         {
             Size = 0;
-            First = new Node();
+            first = new Node();
         }
 
-
         public event EventHandler LocationOverlap;
+
         protected virtual void OnLocationOverlap(EventArgs e)
         {
             EventHandler handler = LocationOverlap;
@@ -24,94 +26,103 @@ namespace VendingMachine
                 handler(this, e);
             }
         }
+
         public Node FindPrevious(ContainableItem other)
         {
-            Node Previous = First;
+            Node previous = first;
             for (int i = 0; i < Size; i++)
-                if (Previous.To != null && Previous.To.containableItem.Equals(other))
-                    return Previous;
-                else if (Previous.containableItem.EqualsPosition(other))
+            {
+                if (previous.To != null && previous.To.ContainableItem.Equals(other))
+                {
+                    return previous;
+                }
+                else if (previous.ContainableItem.EqualsPosition(other))
                 {
                     OnLocationOverlap(EventArgs.Empty);
                 }
                 else
-                    Previous = Previous.To;
+                {
+                    previous = previous.To;
+                }
+            }
             return null;
         }
 
-        public void Add(ContainableItem New)
+        public void Add(ContainableItem @new)
         {
-            Node Same = FindPrevious(New);
-            if (Same != null)
-                Same.To.SetQuantity(Same.To.GetQuantity() + New.product.GetSize());
+            Node same = FindPrevious(@new);
+            if (same != null)
+            {
+                same.To.SetQuantity(same.To.GetQuantity() + @new.Product.GetSize());
+            }
             else
             {
                 Size++;
-                Node Temp = new Node(New, First);
-                Temp.containableItem.position.ID1 = First.containableItem.position.ID1 + 1;
-                First = Temp;
+                Node temp = new Node(@new, first);
+                temp.ContainableItem.Position.ID1 = first.ContainableItem.Position.ID1 + 1;
+                first = temp;
             }
         }
-        public void Remove(ContainableItem Removing)
-        {
 
-            if (First.containableItem.position.Equals(Removing.position))
+        public void Remove(ContainableItem removing)
+        {
+            if (first.ContainableItem.Position.Equals(removing.Position))
             {
-                First = First.To;
+                first = first.To;
                 Size--;
             }
             else
             {
-
-                Node Temp = First;
+                Node temp = first;
                 for (int i = 1; i < Size; i++)
                 {
-                    if (Temp.To.containableItem.position.Equals(Removing.position))
+                    if (temp.To.ContainableItem.Position.Equals(removing.Position))
                     {
-                        Temp.To = Temp.To.To;
+                        temp.To = temp.To.To;
                         Size--;
                         break;
                     }
-                    Temp = Temp.To;
+                    temp = temp.To;
                 }
             }
         }
+
         public int Count()
         {
             return Size;
         }
+
         public ContainableItem GetByPoistion(Position pos)
         {
-            if (First.containableItem.position.Equals(pos))
+            if (first.ContainableItem.Position.Equals(pos))
             {
-                return First.containableItem;
+                return first.ContainableItem;
             }
             else
             {
-
-                Node Temp = First;
+                Node temp = first;
                 for (int i = 1; i < Size; i++)
                 {
-                    if (Temp.To.containableItem.position.Equals(pos))
+                    if (temp.To.ContainableItem.Position.Equals(pos))
                     {
-                        return Temp.To.containableItem;
+                        return temp.To.ContainableItem;
                     }
-                    Temp = Temp.To;
+                    temp = temp.To;
                 }
             }
             return null;
         }
-        public Boolean DecrementQuantity(int ID)
-        {
-            Node Actual = First;
 
+        public Boolean DecrementQuantity(int iD)
+        {
+            Node actual = first;
             for (int i = 0; i < Size; i++)
             {
-                if (Actual.HasSameID(ID))
+                if (actual.HasSameID(iD))
                 {
-                    if (Actual.GetQuantity() > 0)
+                    if (actual.GetQuantity() > 0)
                     {
-                        Actual.SetQuantity(Actual.GetQuantity() - 1);
+                        actual.SetQuantity(actual.GetQuantity() - 1);
                         return true;
                     }
                     else
@@ -120,26 +131,28 @@ namespace VendingMachine
                     }
                 }
                 else
-                    Actual = Actual.To;
+                {
+                    actual = actual.To;
+                }
             }
             return false;
         }
-        public Product GetProductViaID(int ID)
-        {
-            Node Actual = First;
 
+        public Product GetProductViaID(int iD)
+        {
+            Node actual = first;
             for (int i = 0; i < Size; i++)
             {
-                if (Actual.HasSameID(ID))
+                if (actual.HasSameID(iD))
                 {
-                    return Actual.containableItem.product;
+                    return actual.ContainableItem.Product;
                 }
                 else
-                    Actual=Actual.To;
+                {
+                    actual = actual.To;
+                }
             }
             return null;
-
         }
     }
-
 }

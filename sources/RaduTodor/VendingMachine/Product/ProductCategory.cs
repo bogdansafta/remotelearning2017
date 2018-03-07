@@ -2,16 +2,17 @@ namespace VendingMachine
 {
     internal class ProductCategory
     {
-        string Name;
+        string name;
         public ProductCategory()
         {
-            Name = null;
-        }
-        public ProductCategory(string x)
-        {
-            Name = x;
+            name = null;
         }
 
-        public string name { get => Name; set => Name = value; }
+        public ProductCategory(string x)
+        {
+            name = x;
+        }
+
+        public string Name { get => name; set => name = value; }
     }
 }

@@ -14,9 +14,13 @@ namespace VendingMachine
                 double inserted;
                 double.TryParse(Console.ReadLine(), out inserted);
                 if (inserted == 50 || inserted == 10 || inserted == 5 || inserted == 1)
+                {
                     Accumulate = Accumulate + inserted / 100.0;
+                }
                 else
+                {
                     throw new MyException("Money not accepted");
+                }
             }
             Console.WriteLine(ChangeGiven(Accumulate - price));
             IsValid = true;
@@ -36,8 +40,7 @@ namespace VendingMachine
                    change -= monede[index];
                }
            }
-           written.Append(" bani");
-       
+           written.Append(" bani");      
            return written.ToString();
         }
     }
