@@ -7,18 +7,20 @@ namespace VendingMachine
     {
         public ContainableItemsCollection containableItemsCollection { get; }
 
-        private Repository repository;
-        
+        public Product dispensedProduct {get; private set; }
+        public Repository repository;
+
         public Dispenser(ContainableItemsCollection containableItemsCollection)
         {
-            this.containableItemsCollection=containableItemsCollection;
-            this.repository=Repository.Instance;
+            this.containableItemsCollection = containableItemsCollection;
+            this.repository = Repository.Instance;
+            this.repository.UpdateStockAndVolume(this.containableItemsCollection);
         }
 
         private StringBuilder generateCurrentStock()
         {
-            StringBuilder toReturn=new StringBuilder();
-            for(int index=0; index<this.containableItemsCollection.Count(); index++)
+            StringBuilder toReturn = new StringBuilder();
+            for (int index = 0; index < this.containableItemsCollection.Count(); index++)
             {
                 toReturn.Append(this.containableItemsCollection.Get(index).Product.ToString());
                 toReturn.AppendLine();
@@ -28,37 +30,34 @@ namespace VendingMachine
 
         public Product Dispense(int productID)
         {
-            Product productToDispense=new Product();
-            productToDispense=this.containableItemsCollection.GetProductByID(productID);
-            if(productToDispense==null)
+            Product productToDispense = new Product();
+            productToDispense = this.containableItemsCollection.GetProductByID(productID);
+            if (productToDispense == null)
             {
-                Console.WriteLine("Product unavailable!");
-                return null;
+                throw new ProductUnavailableException();
             }
             else
             {
                 productToDispense.Quantity--;
-                Console.WriteLine($"Dispensed: {productToDispense}");
-                this.repository.writeReport(productToDispense.ToString(),this.generateCurrentStock());
+                this.dispensedProduct=productToDispense;
                 return productToDispense;
             }
-
-            
         }
 
-        public void Update() 
+        public void Update(Product product)
         {
-            Console.WriteLine("Product dispensed!");
+            int ID = this.containableItemsCollection.GetProductID(product);
+            this.Dispense(ID);
         }
-        
+
         public Product GetProductByID(int id)
         {
             return this.containableItemsCollection.GetProductByID(id);
         }
 
-        public void PrintReport()
+        public void Report()
         {
-            this.repository.printReport();
+            this.repository.writeReport();
         }
     }
 }

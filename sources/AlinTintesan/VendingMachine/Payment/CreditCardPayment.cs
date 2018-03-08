@@ -15,7 +15,7 @@ namespace VendingMachine
             if(randomNumber==0)
                 return 0;
             else
-                return -1;
+                throw new CreditCardRejectedException();
         }
 
         public override double Refund => this.Paid;

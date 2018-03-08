@@ -54,6 +54,17 @@ namespace VendingMachine
             return null;
         }
 
+        public int GetProductID(Product product)
+        {
+            for(int index=0; index<this.size; index++)
+            {
+                ContainableItem itemToReturn=this.items[index];
+                if(itemToReturn.Product.Equals(product))
+                    return itemToReturn.Position.ID;
+            }
+            return -1;
+        }
+
         public int Count() => this.size;
 
         public void Add(ContainableItem containableItem)

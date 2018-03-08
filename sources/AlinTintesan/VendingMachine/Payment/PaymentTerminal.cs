@@ -7,14 +7,27 @@ namespace VendingMachine
         public Dispenser dispenser { get; private set; }
 
         public PaymentEvent paymentEvent;
+
+        public double Refund { get; private set; }
+
+        public event EventHandler ProductDispensed;
+
+        protected virtual void onProductDispensed(EventArgs e)
+        {
+            EventHandler handler=ProductDispensed;
+            if(handler!=null)
+                handler(this,e);
+        }
+
         public PaymentTerminal(Dispenser dispenser)
         {
             this.dispenser = dispenser;
             this.paymentEvent=new PaymentEvent();
             this.paymentEvent.Subscribe(dispenser);
+            this.paymentEvent.Subscribe(dispenser.repository);
         }
 
-        public bool Pay(int productID, Payment payment)
+        public void Pay(int productID, Payment payment)
         {
             Product productToDispense=this.dispenser.GetProductByID(productID);
             if(productToDispense!=null)
@@ -23,22 +36,21 @@ namespace VendingMachine
                 double change=payment.Change(price);
                 if(change>=0)
                 {
-                    this.dispenser.Dispense(productID);
-                    Console.WriteLine($"Succesfully bought {productToDispense.Name}. Here's your change {change}");
-                    this.paymentEvent.Notify(productID);
-                    return true;    
+                    onProductDispensed(EventArgs.Empty);
+                    this.paymentEvent.Notify(productToDispense);   
                 }
                 else
                 {
-                    Console.WriteLine($"Not enough money! Refund {payment.Refund}");
-                    return false;
+                    this.Refund=payment.Refund;
+                    throw new NotEnoughMoneyException();
                 }  
             } 
             else
             {
-                Console.WriteLine($"Product unavailable. Refund: {payment.Refund}");
-                return false;
+                this.Refund=payment.Refund;
+                throw new NotEnoughMoneyException();
             }
+
         }
     }
 }

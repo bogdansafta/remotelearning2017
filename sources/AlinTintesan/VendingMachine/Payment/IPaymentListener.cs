@@ -4,6 +4,6 @@ namespace VendingMachine
 {
     public interface IPaymentListener
     {
-        void Update();
+        void Update(Product product);
     }
 }

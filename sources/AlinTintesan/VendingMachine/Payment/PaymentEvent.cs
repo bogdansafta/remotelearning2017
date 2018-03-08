@@ -12,10 +12,10 @@ namespace VendingMachine
             this.listeners=new List<IPaymentListener>();
         }
         
-        public void Notify(int  productID)
+        public void Notify(Product product)
         {
             foreach(var listener in this.listeners)
-                listener.Update();
+                listener.Update(product);
         }
 
         public void Subscribe(IPaymentListener subscriber)
