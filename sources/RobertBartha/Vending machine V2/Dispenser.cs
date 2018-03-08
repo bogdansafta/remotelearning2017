@@ -8,7 +8,7 @@ namespace Vending_machine_V2
         public void adaugareData(int identify)
         {
             Data singleton = Data.Instance;
-            singleton.SetData(DispenseProduct(identify), DateTime.Now);
+            //singleton.SetData(DispenseProduct(identify), DateTime.Now);
         }
         public Product DispenseProduct(int identify)
         {
