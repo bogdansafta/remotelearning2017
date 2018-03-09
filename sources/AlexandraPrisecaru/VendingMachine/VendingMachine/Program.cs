@@ -9,9 +9,9 @@ namespace VendingMachine
 
         static void Main(string[] args)
         {
-            PaymentTerminal paymentTerminal = new PaymentTerminal();
 
-        BuyProduct:
+        BuyProduct:            
+            PaymentTerminal paymentTerminal = new PaymentTerminal();
             Payment payment = paymentTerminal.GetPayment();
             Console.WriteLine($"Payment type selected: {payment.ToString()}");
 
@@ -25,13 +25,14 @@ namespace VendingMachine
             int id = GetSelectedId();
 
             paymentTerminal.Pay(id, payment);
-
             Console.WriteLine("Try again? Y/N");
             string answer = Console.ReadLine();
-            if(answer.ToUpper().Equals("Y")){
+            if (answer.ToUpper().Equals("Y"))
+            {
                 goto BuyProduct;
             }
-            
+
+            GenerateReports();
             Console.ReadKey();
         }
 
@@ -140,6 +141,13 @@ namespace VendingMachine
             }
 
             return id;
+        }
+
+        private static void GenerateReports()
+        {
+            ReportManager<Sale>.GenerateReport(DataAcquisition.Instance.Sales.ToList());
+            ReportManager<Stock>.GenerateReport(DataAcquisition.Instance.Stocks);
+            ReportManager<Volume>.GenerateReport(DataAcquisition.Instance.Volumes);
         }
     }
 }

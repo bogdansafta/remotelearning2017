@@ -3,14 +3,14 @@ using System.ComponentModel;
 
 namespace VendingMachine
 {
-    public class Sale
+    public class Sale 
     {
         public string ProductName { get; }
         public int Quantity { get; }
         public double Price { get; }
         public DateTime Date { get; }
 
-        public Sale(Product product, int quantity=1)
+        public Sale(Product product, int quantity = 1)
         {
             ProductName = product.Name;
             Quantity = quantity;

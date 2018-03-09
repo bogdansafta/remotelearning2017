@@ -5,19 +5,24 @@ namespace VendingMachine
 {
     public class VendingMachine
     {
+        private static readonly object padlock = new object();
         private static VendingMachine instance;
         private ContainableItemCollection items;
 
-
         public static VendingMachine Instance
         {
+
             get
             {
-                if (instance == null)
+
+                lock (padlock)
                 {
-                    instance = new VendingMachine();
+                    if (instance == null)
+                    {
+                        instance = new VendingMachine();
+                    }
+                    return instance;
                 }
-                return instance;
             }
         }
 
@@ -64,6 +69,13 @@ namespace VendingMachine
 
                 DataAcquisition.Instance.AddToStocks(productName, quantity);
             }
+
+            collection.Add(new ContainableItem()
+            {
+                Product = new Product() { Name = "snacks, snacks & snacks", Quantity = 10 }
+            });
+            
+            DataAcquisition.Instance.AddToStocks("snacks, snacks & snacks", 10);
 
             return collection;
         }

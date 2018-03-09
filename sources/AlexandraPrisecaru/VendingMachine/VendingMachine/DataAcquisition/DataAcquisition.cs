@@ -12,14 +12,28 @@ namespace VendingMachine
         private const string csvStocksFile = "Data/Stocks.csv";
         private const string csvVolumesFile = "Data/Volumes.csv";
 
-
+        private static readonly object padlock = new object();
         private static DataAcquisition instance;
-        public static DataAcquisition Instance => instance ?? (instance = new DataAcquisition());
+        public static DataAcquisition Instance
+        {
+            get
+            {
+
+                lock (padlock)
+                {
+                    if (instance == null)
+                    {
+                        instance = new DataAcquisition();
+                    }
+                    return instance;
+                }
+            }
+        }
 
         public ObservableCollection<Sale> Sales { get; private set; }
 
-        public List<Volume> Volumes { get; private set; }
-        public List<Stock> Stocks { get; private set; }
+        public System.Collections.Generic.List<Volume> Volumes { get; private set; }
+        public System.Collections.Generic.List<Stock> Stocks { get; private set; }
 
         private void SalesChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -37,8 +51,8 @@ namespace VendingMachine
             Sales = new ObservableCollection<Sale>();
             Sales.CollectionChanged += SalesChanged;
 
-            Volumes = new List<Volume>();
-            Stocks = new List<Stock>();
+            Volumes = new System.Collections.Generic.List<Volume>();
+            Stocks = new System.Collections.Generic.List<Stock>();
         }
 
         public void AddToStocks(string productName, int quantity)
@@ -48,7 +62,6 @@ namespace VendingMachine
             {
                 stock = new Stock(productName, quantity);
                 Stocks.Add(stock);
-                File.AppendAllText(csvStocksFile, stock.ToString());
             }
             else
             {
