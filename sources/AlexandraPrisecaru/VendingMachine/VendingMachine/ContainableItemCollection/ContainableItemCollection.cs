@@ -3,7 +3,7 @@ using System.Linq;
 
 namespace VendingMachine
 {
-    public class ContainableItemCollection : List<ContainableItem>
+    public class ContainableItemCollection : Collection<ContainableItem>
     {
         public bool RemoveBy(Position position)
         {

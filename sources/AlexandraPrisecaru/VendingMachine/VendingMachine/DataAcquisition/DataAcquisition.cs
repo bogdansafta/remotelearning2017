@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
@@ -28,8 +29,8 @@ namespace VendingMachine
 
         public ObservableCollection<Sale> Sales { get; private set; }
 
-        public System.Collections.Generic.List<Volume> Volumes { get; private set; }
-        public System.Collections.Generic.List<Stock> Stocks { get; private set; }
+        public List<Volume> Volumes { get; private set; }
+        public List<Stock> Stocks { get; private set; }
 
         private void SalesChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
@@ -47,8 +48,8 @@ namespace VendingMachine
             Sales = new ObservableCollection<Sale>();
             Sales.CollectionChanged += SalesChanged;
 
-            Volumes = new System.Collections.Generic.List<Volume>();
-            Stocks = new System.Collections.Generic.List<Stock>();
+            Volumes = new List<Volume>();
+            Stocks = new List<Stock>();
         }
 
         public void AddToStocks(string productName, int quantity)

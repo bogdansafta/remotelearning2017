@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -7,7 +8,7 @@ namespace VendingMachine
 {
     public static class ReportManager<T>
     {
-        internal static void GenerateReport(System.Collections.Generic.List<T> items)
+        internal static void GenerateReport(List<T> items)
         {
             StringBuilder stringbuilder = new StringBuilder();
             foreach (T item in items)

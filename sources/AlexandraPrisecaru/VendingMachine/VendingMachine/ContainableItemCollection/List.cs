@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace VendingMachine
 {
-    public class List<T> : ICollection<T>
+    public class Collection<T> : ICollection<T>
     {
         private T[] internalItems;
         private int size;
@@ -33,13 +33,13 @@ namespace VendingMachine
             }
         }
 
-        public List()
+        public Collection()
         {
             size = 4;
             internalItems = new T[size];
         }
 
-        public List(int size)
+        public Collection(int size)
         {
             internalItems = new T[size];
             this.size = size;
@@ -168,13 +168,13 @@ namespace VendingMachine
 
         internal class Enumerator : IEnumerator<T>
         {
-            private List<T> list;
+            private Collection<T> collection;
             private int index;
             private T current;
 
-            internal Enumerator(List<T> list)
+            internal Enumerator(Collection<T> collection)
             {
-                this.list = list;
+                this.collection = collection;
                 index = 0;
                 current = default(T);
             }
@@ -195,9 +195,9 @@ namespace VendingMachine
 
             public bool MoveNext()
             {
-                if (index < list.Count)
+                if (index < collection.Count)
                 {
-                    current = list.internalItems[index];
+                    current = collection.internalItems[index];
                     index++;
                     return true;
                 }
