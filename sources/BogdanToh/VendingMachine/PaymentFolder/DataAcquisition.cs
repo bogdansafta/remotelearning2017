@@ -1,14 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
+using System.Text;
+
 namespace VendingMachine {
-    public class DataAcquizition {
+    public class DataAcquisition {
         //Sales -> product,quantity,price,value,date
 
         private int addToQuantity = 1;
-        List<int> total = new List<int>();
-        private static DataAcquizition data;
+        List<int> total = new List<int> ();
+        private static DataAcquisition data;
 
         private class Sales {
 
@@ -54,21 +57,63 @@ namespace VendingMachine {
         List<Sales> sales = new List<Sales> ();
         List<Volume> volume = new List<Volume> ();
         List<Stock> stock = new List<Stock> ();
-        private DataAcquizition () { }
+
+        string salesCSV = "PaymentFolder/Sales.csv";
+        string stockCSV = "PaymentFolder/Stock.csv";
+        string volumeCSV = "PaymentFolder/Volume.csv";
+        private DataAcquisition () { }
 
         public void LoadData (Product product, DateTime time) {
             sales.Add (new Sales (product, time));
             stock.Add (new Stock (product.Name, product.Quantity));
-            if (volume.Count > 1 && volume.ElementAt (volume.Count - 1).Name != product.Name) {
-                addToQuantity = 1;
-            }
-            if (volume.Count == 1 && volume.ElementAt (volume.Count - 1).Name != product.Name) {
+            if ((volume.Count > 1 || volume.Count == 1) && volume.ElementAt (volume.Count - 1).Name != product.Name) {
                 addToQuantity = 1;
             }
             volume.Add (new Volume (product.Name, product.Quantity + addToQuantity));
             addToQuantity++;
 
         }
+
+        private void SalesReport () {
+            string delimiter = ";";
+            StringBuilder report = new StringBuilder ();
+            foreach (Sales s in sales) {
+                report.AppendLine (String.Join (delimiter, s.ToString ()));
+            }
+            File.AppendAllText (this.salesCSV, report.ToString ());
+        }
+
+
+             private void StockReport()
+       {
+            string delimiter=";";
+            StringBuilder report=new StringBuilder();
+            foreach( Stock s in stock)
+            {
+                report.AppendLine(String.Join(delimiter,s.ToString()));
+            }
+            File.AppendAllText(stockCSV,report.ToString());
+        }
+
+         private void VolumeReport()
+       {
+            string delimiter=";";
+            StringBuilder report=new StringBuilder();
+            foreach( Volume v in volume)
+            {
+                report.AppendLine(String.Join(delimiter,v.ToString()));
+            }
+            File.AppendAllText(volumeCSV,report.ToString());
+        }
+
+
+        public void GenerateReports()
+        {
+            SalesReport();
+            StockReport();
+            VolumeReport();
+        }
+
         public void ShowData () {
             Console.WriteLine ("Sales:");
             foreach (Sales s in sales)
@@ -83,12 +128,10 @@ namespace VendingMachine {
                 Console.WriteLine (st.ToString ());
             }
 
-            foreach(int t in total)
-             Console.WriteLine ("ceva"+t);
         }
-        public static DataAcquizition GetInstance () {
+        public static DataAcquisition GetInstance () {
             if (data == null) {
-                data = new DataAcquizition ();
+                data = new DataAcquisition ();
             }
             return data;
         }

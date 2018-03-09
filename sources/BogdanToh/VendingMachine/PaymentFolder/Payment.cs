@@ -4,5 +4,6 @@ namespace VendingMachine
     {
        public abstract double change(double accumulate,double price);
        public abstract bool IsValid{get;protected set;}
+       
     }
 }

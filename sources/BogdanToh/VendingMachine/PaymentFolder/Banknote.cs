@@ -2,6 +2,8 @@ using System;
 namespace VendingMachine {
     public class Banknote : Payment {
         public override bool IsValid { get; protected set; }
+
+
         public override double change (double accumulate, double price) {
             IsValid = false;
             double insertBanknotes = 0;

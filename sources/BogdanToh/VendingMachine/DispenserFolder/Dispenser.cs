@@ -7,6 +7,7 @@ namespace VendingMachine
           
         private static LinkedList<ContainableItem> listofProducts=ContainableItemsCollection.GetList();
         
+        public static string Message="";
         public static Product GetProduct(int id)
         {
              ContainableItem item=listofProducts.FirstOrDefault(itemToDispense =>itemToDispense.Position.Id ==id);
@@ -18,19 +19,18 @@ namespace VendingMachine
             {
                 throw new System.Exception("The product is not in the stock for the moment");
             }
-           
-           // DataAcquizition.GetInstance(item.Product,DateTime.Now).showData();
+        
              return item.Product;
         }
 
        
-        private void Dispense(int id)
+        private string Dispense(int id)
         {  
             
             ContainableItem item=listofProducts.FirstOrDefault(itemToDispense =>itemToDispense.Position.Id ==id);
             item.Product.Quantity--;
-            DataAcquizition.GetInstance().LoadData(item.Product,DateTime.Now);
-            Console.WriteLine($"Quantity left for {item.Product.Name} is {item.Product.Quantity}" );
+            DataAcquisition.GetInstance().LoadData(item.Product,DateTime.Now);
+            return ($"Quantity left for {item.Product.Name} is {item.Product.Quantity}" );
             
             
         }
@@ -38,9 +38,8 @@ namespace VendingMachine
         public void update(int id)
         {
            
-            Dispense(id);
-            DataAcquizition.GetInstance().ShowData();
-          
+            Message = Dispense(id);
+            //DataAcquizition.GetInstance().GenerateReports();
         }
 
 
