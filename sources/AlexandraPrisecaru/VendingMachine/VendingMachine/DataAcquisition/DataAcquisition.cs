@@ -8,10 +8,6 @@ namespace VendingMachine
 {
     public class DataAcquisition : IPaymentListener
     {
-        private const string csvSalesFile = "Data/Sales.csv";
-        private const string csvStocksFile = "Data/Stocks.csv";
-        private const string csvVolumesFile = "Data/Volumes.csv";
-
         private static readonly object padlock = new object();
         private static DataAcquisition instance;
         public static DataAcquisition Instance
