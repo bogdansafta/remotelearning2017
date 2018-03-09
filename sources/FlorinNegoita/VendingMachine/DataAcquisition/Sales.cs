@@ -4,18 +4,23 @@ namespace VendingMachine
 {
     public class Sales
     {
-        Product product;
+        private string productName;
 
-        DateTime dateTime;
+        private int quantity;
+
+        private double price;
+        private DateTime dateTime;
 
         public Sales(Product product, DateTime dateTime)
         {
-            this.product = product;
+            this.productName = product.Name;
+            this.quantity = product.Quantity;
+            this.price = product.Price;
             this.dateTime = dateTime;
         }
         public override string ToString()
         {
-            return $"Product: {product.ToString()} , DateTime: {dateTime}";
+            return $"Name Product: {productName} , Price: {price} , Quantity: {quantity} , DateTime: {dateTime}";
         }
     }
 }

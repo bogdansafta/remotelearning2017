@@ -21,7 +21,7 @@ namespace VendingMachine
                 Row = 1,
                 Column = 2,
                 Size = 3,
-                Id = 1
+                Id = 0
             };
 
             Position position2 = new Position()
@@ -29,6 +29,14 @@ namespace VendingMachine
                 Row = 2,
                 Column = 1,
                 Size = 4,
+                Id = 1
+            };
+
+             Position position3 = new Position()
+            {
+                Row = 4,
+                Column = 5,
+                Size = 2,
                 Id = 2
             };
 
@@ -58,21 +66,21 @@ namespace VendingMachine
 
             ContainableItem containableItem1 = new ContainableItem()
             {
-                Position = position2,
+                Position = position1,
                 Product = product1
 
             };
 
             ContainableItem containableItem2 = new ContainableItem()
             {
-                Position = position1,
+                Position = position2,
                 Product = product2
 
             };
 
             ContainableItem containableItem3 = new ContainableItem()
             {
-                Position = position1,
+                Position = position3,
                 Product = product3
             };
 
@@ -125,7 +133,7 @@ namespace VendingMachine
             }
 
             Singleton singleton = Singleton.Instance;
-            Console.WriteLine(singleton.ToString());
+            singleton.WriteReport();
         }
     }
 }

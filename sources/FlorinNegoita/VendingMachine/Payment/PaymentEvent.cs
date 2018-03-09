@@ -11,11 +11,11 @@ namespace VendingMachine
             listeners = new List<IPaymentListener>();
         }
 
-        public void Notify(int productId)
+        public void Notify(Product product)
         {
             foreach (var listener in listeners)
             {
-                listener.Update();
+                listener.Update(product);
             }
         }
 

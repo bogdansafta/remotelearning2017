@@ -27,7 +27,7 @@ namespace VendingMachine
                     dispenser.Dispense(productId);
                     Console.WriteLine($"Product -> {product}");
 
-                    eventPayment.Notify(productId);
+                    eventPayment.Notify(product);
                 }
                 else
                     Console.WriteLine("Error! Please try again.");
